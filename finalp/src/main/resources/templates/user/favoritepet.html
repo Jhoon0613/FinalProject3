@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+<style>
+	
+</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="stylesheet" th:href="@{/board/css/mypage.css}">
+</head>
+<body>
+	<div id="wrap">
+		 <th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+            <div class="title_">
+                <div class="text_">
+                    <div class="header_area">
+                        <img src="/user/images/id.png" class="mp_pro">
+                        <p>[[${username}]]님 환영합니다.</p>
+                    </div>
+                </div>
+                <div class="menu_all">
+                    <div class="header_text"><span>관심 동물</span></div>
+                <article>
+            <div class="side_menu">
+                <div class="mypage_menu">
+                    <strong>회원정보</strong>
+                    <ul>
+                        <li class="menu_info"><a href="/user/mypage">기본정보</a></li>
+                        <li class="menu_info"><a href="/user/pwck">비밀번호 변경</a></li>
+                        <li class="menu_info"><a href="/user/rmpwck">회원탈퇴</a></li>
+                    </ul>
+                </div>
+                <div class="mypage_menu">
+                    <strong>마이메뉴</strong>
+                    <ul>
+                        <li class="menu_my"><a href="/user/favoritepet" style="border-bottom: 3px solid #fff; font-weight: bold; color: #fff;" >관심 동물</a></li>
+                        <li class="menu_my"><a href="">관심 스토리</a></li>
+                        <li class="menu_my"><a href="">내가 쓴 스토리</a></li>
+                        <li class="menu_my"><a href="/user/mycontents">내가 쓴 게시글</a></li>
+
+                    </ul>
+                </div>
+            </div>
+                    <div class="main_menu">
+                        <div class="mypage_info_contents">
+                            <h2 class="myinfo">관심 동물</h2>
+                            <div class="fp_table">
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/id.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/naver.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/main3.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/kakao.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/location.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/name.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/password.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/phone.png" class="fp_thumbnail"></a>
+                                </div>
+                                <div class="fp_thumbnail_td">
+                                    <a href=""><img src="/user/images/id.png" class="fp_thumbnail"></a>
+                                </div>
+                                
+                            </div>
+   				<div class="pagination1">
+					<div align="center" valign="middle">
+							<a class="changePage" th:if="${pageMaker.prev}" th:href="${pageMaker.startPage-1}">&lt;</a>
+							<th:block th:each="i : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+								<span class="nowPage" th:text="${i}" th:if="${pageMaker.cri.pagenum == i}"></span>
+								<a class="changePage" th:href="${i}" th:text="${i}"
+									th:unless="${pageMaker.cri.pagenum == i||pageMaker.cri.pagenum != 0}"></a>
+							</th:block>
+							<a class="changePage" th:if="${pageMaker.next}" th:href="${pageMaker.endPage+1}">&gt;</a>
+					</div>
+   				</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+		</section>
+	</div>
+	<form name="pageForm" id="pageForm" th:action="@{/user/favoritepet}">
+		<input type="hidden" name="pagenum" th:value="${pageMaker.cri.pagenum}">
+		<input type="hidden" name="amount" th:value="${pageMaker.cri.amount}">
+		<input type="hidden" name="type" th:value="${pageMaker.cri.type}">
+		<input type="hidden" name="keyword" th:value="${pageMaker.cri.keyword}">
+	</form>
+        </article>
+        <section>
+            <th:block th:replace="~{layout/footer::footer}"></th:block>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+	const pageForm = $("#pageForm");
+
+	$(".changePage").on("click", function (e) {
+		//e(이벤트)의 기본 작동 막기
+		e.preventDefault();
+		let pagenum = $(this).attr("href");
+		pageForm.find("input[name='pagenum']").val(pagenum);
+		pageForm.submit();
+	});
+	
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AdoptMe</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="stylesheet" th:href="@{/board/css/animation.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+<body>
+	<div id="wrap">
+		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>     
+        <section>
+            <div class="title">
+                <div class="text">
+                    <h2>Adopt Me</h2><br><br><br><br>
+                     <p>사지말고 입양하는 문화를 만듭시다</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title2">
+                <div class="text2">
+                    <h2>보호소</h2><br><br>
+                    <p>가족이 되어주세요</p><br>
+                    <a class="btn" href="">바로가기</a>
+                </div>
+                <div class="images2">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title3">
+                <div class="text2" id="txt2">
+                    <h2>실종/제보</h2><br><br>
+                    <p>가족에게 돌아갈수있게 도와주세요</p><br>
+                    <a class="btn" href="#">바로가기</a>
+                </div>
+                <div class="images2">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title4">
+                <div class="text3">
+                    <h2>스토리</h2><br><br>
+                    <p>입양후기를 만나보세요</p><br>
+                    <a class="btn" href="#">바로가기</a>
+                </div>
+            </div>
+        </section>
+        <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>     
+		</section>
+    </div>
+</body>
+<script th:src="@{/board/js/animation.js}"></script>
+
+</html>

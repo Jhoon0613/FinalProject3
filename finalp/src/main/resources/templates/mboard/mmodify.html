@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>수정</title>
+	<style>
+
+	</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+
+<body>
+	<div id="wrap">
+		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+		<section>
+			<div class="p_title1">
+				<div class="p_text">
+					<h2>실종/제보</h2><br>
+					<p>가족에게 돌아갈수있게 도와주세요</p>
+				</div>
+				<div class="p_images">
+					<img src="" alt="">
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="r_title">
+				<div class="info">
+					<h2>기본정보</h2>
+				</div>
+				<form id="boardForm" method="post" name="boardForm" th:action="@{/mboard/mmodify}" enctype="multipart/form-data">
+					<input type="hidden" th:value="${cri.pagenum}" name="pagenum">
+					<input type="hidden" th:value="${cri.amount}" name="amount">
+					<input type="hidden" th:value="${cri.type}" name="type">
+					<input type="hidden" th:value="${cri.keyword}" name="keyword">
+					<input type="hidden" th:value="${board.boardnum}" name="boardnum">
+					<table class="info_txt1">
+						<tr>
+							<th>상태</th>
+							<td colspan="2">
+									<input type="text" th:value="${board.category}" readonly>
+								<select name="category">
+									<option value="전체">전체</option>
+									<option value="실종">실종</option>
+									<option value="목격">목격</option>
+									<option value="완료">완료</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td colspan="2">
+								<input type="text" name="userid" th:value="${session.loginUser}" readonly>
+							</td>
+						</tr>
+						<tr>
+							<th>날짜</th>
+							<td colspan="2">
+								<input type="date" name="regdate" th:value="${board.regdate}">
+							</td>
+						</tr>
+						<tr>
+							<th>지역</th>
+							<td>
+								<input type="text" th:value="${board.findarea}" readonly>
+								<select name="findarea" onchange="categoryChange(this)">
+									<option value>시/도 선택</option>
+									<option value="강원">강원</option>
+									<option value="경기">경기</option>
+									<option value="경남">경남</option>
+									<option value="경북">경북</option>
+									<option value="광주">광주</option>
+									<option value="대구">대구</option>
+									<option value="대전">대전</option>
+									<option value="부산">부산</option>
+									<option value="서울">서울</option>
+									<option value="울산">울산</option>
+									<option value="인천">인천</option>
+									<option value="전남">전남</option>
+									<option value="전북">전북</option>
+									<option value="제주">제주</option>
+									<option value="충남">충남</option>
+									<option value="충북">충북</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" th:value="${board.findareadetail}" readonly>
+								<select name="findareadetail" id="state">
+									<option>군/구 선택</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>장소</th>
+							<td colspan="2">
+								<input type="text" name="findareadetail2" id="findareadetail2"
+									th:value="${board.findareadetail2}" placeholder="구체적인 장소를 적어주세요.">
+							</td>
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td colspan="2">
+								<input type="text" name="phonenum" placeholder="연락처를 남겨주세요." th:value="${board.phonenum}">
+							</td>
+						</tr>
+					</table>
+					<div class="info">
+						<h2>동물정보</h2>
+					</div>
+					<table class="info_txt1">
+						<tr>
+							<th>품종</th>
+							<td>
+								<select name="pettype" th:value="${board.pettype}">
+									<option value="개">개</option>
+									<option value="고양이">고양이</option>
+									<option value="기타">기타</option>
+								</select>
+							</td>
+							<td colspan="2">
+								<input type="text" name="findtitle" placeholder="품종을 적어주세요" th:value="${board.findtitle}">
+							</td>
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td>
+								<select name="petsex">
+									<option value="미확인">미확인</option>
+									<option value="암컷">암컷</option>
+									<option value="수컷">수컷</option>
+								</select>
+							</td>
+							<td colspan="2">
+								중성화 &nbsp;&nbsp;&nbsp;
+								완료<input type="radio" class="r3"name="neutering" value="O"><label for="neutering"></label>
+								미완료<input type="radio" class="r3"name="neutering" value="X"><label for="neutering"></label>
+							</td>
+						</tr>
+						<tr>
+							<th>나이</th>
+							<td>
+								<input type="text" name="petage" placeholder="'n'살" th:value="${board.petage}">
+							</td>
+							<th>몸무게</th>
+							<td>
+								<input type="text" name="petweight" placeholder="'n'kg" th:value="${board.petweight}">
+							</td>
+						</tr>
+						<tr>
+							<th>털색</th>
+							<td colspan="3">
+								<input type="text" name="petcolor" placeholder="털색을 설명해주세요." th:value="${board.petcolor}">
+							</td>
+						</tr>
+						<tr>
+							<th>특징</th>
+							<td colspan="3">
+								<input type="text" name="petchar" placeholder="눈에 띄는 특징을 적어주세요" th:value="${board.petchar}">
+							</td>
+						</tr>
+						<tr>
+							<th>기타</th>
+							<td colspan="3">
+								<input type="text" name="findcontents" placeholder="기타사항을 입력해주세요" th:value="${board.findcontents}">
+							</td>
+						</tr>
+						<tr th:class="${'r'+fileStat.index}" th:if="${files != null and files.size() > 0}" th:each="file : ${files}">
+					<th>파일 첨부[[${fileStat.index+1}]]</th>
+					<td colspan="3" th:class="${'file'+fileStat.index+'_cont'}">
+						<div style="float:left;">
+							<input type="file" name="files" th:id="${'file'+fileStat.index}" style="display:none">
+							<span th:id="${'file'+fileStat.index+'name'}" th:text="${file.orgname}"></span>
+						</div>
+						<div class="m_file">
+							<!-- <a href="javascript:upload('file5','DateTIMEUUID.png')"> -->
+							<a th:href="'javascript:upload(\'file'+${fileStat.index}+'\',\''+${file.systemname}+'\')'">파일 선택</a>
+							<a th:href="'javascript:cancelFile(\'file'+${fileStat.index}+'\',\''+${file.systemname}+'\')'">첨부 삭제</a>
+						</div>
+						<input type="hidden" name="orgname" th:value="${file.orgname}">
+						<th:block th:with="sar=${file.orgname.split('[.]')}">
+							<th:block th:with="ext=${sar[sar.length-1]}">
+								<img th:if="${ext == 'jpg' or ext == 'jpeg' or ext == 'png' or ext == 'gif' or ext == 'webp'}" th:src="@{/mboard/thumbnail (systemname=${file.systemname})}" class="thumbnail">
+							</th:block>
+						</th:block>
+					</td>
+				</tr>
+				<tr th:class="${'r'+files.size()}">
+					<th>파일 첨부[[${files.size()+1}]]</th>
+					<td colspan="3" th:class="${'file'+files.size()+'_cont'}">
+						<div class="m_file">
+							<input type="file" name="files" th:id="${'file'+files.size()}" style="display:none">
+							<span th:id="${'file'+files.size()+'name'}">선택된 파일 없음</span>
+						
+							<!-- <a href="javascript:upload('file9','')"> -->
+							<a th:href="'javascript:upload(\'file'+${files.size()}+'\',\'\')'">파일 선택</a>
+							<!-- <a href="javascript:cancelFile('file9','')"> -->
+							<a th:href="'javascript:cancelFile(\'file'+${files.size()}+'\',\'\')'">첨부 삭제</a>
+						</div>
+					</td>
+				</tr>
+				<input type="hidden" value="" name="updateCnt" id="updateCnt">
+					</table>
+				</form>
+					<table class="info1">
+			<tr>
+				<td>
+					<div class="btncss">
+					<a href="javascript:document.boardForm.submit()">수정완료</a>
+					<a th:href="${'/mboard/mlist'+cri.listLink}">목록</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+			</div>
+		</section>
+		<section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+	</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script th:src="@{/board/js/mboard.js}"></script>
+<script th:inline="javascript">
+	
+	
+	
+	let i = /*[[${files.size()}]]*/'';
+	let orgSize = i;
+	
+	let updateCheck = false;
+	let uploadCheck = false;
+	const updateCnt = $("#updateCnt");
+	
+	let num = 0;
+	
+	const orgname = document.getElementsByName("orgname");
+	const org_thumbnail = {};
+	for(let j=0;j<orgname.length;j++){
+		org_thumbnail[orgname[j].value] = document.querySelector(".file"+j+"_cont .thumbnail")
+	}
+	let sysname = "";
+	console.log(orgname);
+	console.log(org_thumbnail);
+	function cancelFile(name,systemname){
+		updateCnt.val(updateCnt.val()+"\\"+systemname)
+		let num = name.split("e")[1];
+		if(num == i){
+			return;
+		}
+		if(i != 0){
+			//tr지우기
+			let temp = Number(name.split("e")[1]);
+			//해당 행 지우기
+			$(".r"+temp).remove();
+			//지워진 다음 행 부터 숫자 바꿔주기
+			for(let j=temp+1;j<=i;j++){
+				const el = $("#boardForm > table:nth-child(8) > tbody").find(".r"+j);
+				el.attr("class","r"+(j-1)+" at");
+				
+				el.children('th').text("파일 첨부"+j);
+				
+				el.children('td').attr("class","file"+(j-1)+"_cont");
+				
+				const fileTag = el.find("input[type='file']");
+				fileTag.attr("name","files");
+				fileTag.attr("id","file"+(j-1));
+				
+				el.find("span").attr("id","file"+(j-1)+"name");
+				
+				el.find("a")[0].href = "javascript:upload('file"+(j-1)+"')"
+				//el.find("a")[1].href = "javascript:cancelFile('file"+(j-1)+"','"+el.find("span").text()+"')"
+				el.find("a")[1].href = decodeURI(el.find("a")[1].href.replace("'file"+j+"'","'file"+(j-1)+"'"));
+				
+			}
+			i--;
+		}
+	}
+	function upload(name,systemname){
+		let temp = $("#"+name+"name").text();
+		num = Number(name.split("e")[1]);
+		if(temp == '선택된 파일 없음'){
+			$("#"+name).click();
+		}
+		else{
+			updateCnt.val(updateCnt.val()+"\\"+systemname)
+			sysname = systemname;
+			$("#"+name).click();
+		}
+	}
+	$("[type='file']").change(function(e){
+		const file = e.target.files[0];
+		const fileTag = e.target;
+		
+		if(file == undefined){
+			if(!$("."+fileTag.id+"_cont [name='orgname']").val()){
+				//비어있던 곳에 파일이 업로드 되었다가 취소한 경우
+				cancelFile(fileTag.id);
+			}
+			else{
+				let n = orgname[num].value;
+				let ext = n.split(".").pop();
+				updateCnt.val(updateCnt.val().replaceAll("\\"+sysname,""));
+				console.log(num);
+				$("#file"+num+"name").text(n);
+				if(ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'gif' || ext == 'webp'){
+					$("."+fileTag.id+"_cont .thumbnail").remove();
+					document.querySelector("."+fileTag.id+"_cont").appendChild(org_thumbnail[n]);
+				}
+				else{
+					if(document.querySelector("."+fileTag.id+"_cont .thumbnail")){
+						$("."+fileTag.id+"_cont .thumbnail").remove();
+					}
+				}
+				sysname = "";
+			}
+		}
+		else{
+			uploadCheck = true;
+			//파일이 없었다가 업로드 한 경우
+			//#file0name
+			$("#"+fileTag.id+"name").text(file.name);
+			//업로드 된 파일의 확장자명
+			let ext = file.name.split(".").pop();
+			if(ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'gif' || ext == 'webp'){
+				$("."+fileTag.id+"_cont .thumbnail").remove();
+				const reader = new FileReader();
+				
+				reader.onload = function(ie){
+					const img = document.createElement("img");
+					img.setAttribute("src",ie.target.result)
+					img.setAttribute("class","thumbnail");
+					document.querySelector("."+fileTag.id+"_cont").appendChild(img);
+				}
+				reader.readAsDataURL(file);
+			}
+			else{
+				const temp = $("."+fileTag.id+"_cont .thumbnail");
+				if(temp != null){
+					temp.remove();
+				}
+			}
+			//가장 마지막 파일 선택 버튼을 눌렀을 때
+			if(num == i){
+				const cloneElement = $(".r"+i).clone(true);
+				i++;
+				cloneElement.appendTo("#boardForm > table:nth-child(8) > tbody")
+				const lastElement = $("#boardForm > table:nth-child(8) > tbody").children().last();
+				
+				lastElement.attr("class","r"+i+" at");
+				lastElement.children("th").text("파일 첨부"+(i+1));
+				lastElement.children("td").attr("class","file"+i+"_cont");
+				
+				lastElement.find("input[type='file']").attr("name","files");
+				lastElement.find("input[type='file']").attr("id","file"+i);
+				lastElement.find("input[type='file']").val("");
+				
+				lastElement.find("span").attr("id","file"+i+"name");
+				lastElement.find("span").text("선택된 파일 없음");
+				
+				lastElement.find("a")[0].href = "javascript:upload('file"+i+"','')";
+				lastElement.find("a")[1].href = "javascript:cancelFile('file"+i+"','선택된 파일 없음')"
+			}
+			
+		}
+	})
+</script>
+</html>

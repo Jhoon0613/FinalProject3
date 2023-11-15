@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.Story_ReplyMapper">
+	<insert id="story_insertReply">
+		insert into story_reply(storyreplywriter,storyreplycontents,storynum)
+		values(#{storyReplyWriter},#{storyReplyContents},#{storyNum})
+	</insert>
+	
+	<select id="story_getStoryWithReplies">
+		<![CDATA[
+		select * from story_reply
+		where storynum >= #{minstorynum} and storynum <= #{maxstorynum}
+		]]>
+	</select>
+	<select id="story_getRepliesByStorynum">
+		select * from story_reply where storynum = #{storyNum}
+	</select>
+	<select id="story_getLastestReply">
+		select * from story_reply order by storyreplynum desc limit 1
+	</select>
+	
+	<update id="story_modifyAndGetReplyContents">
+		update story_reply set storyreplycontents=#{newData}, storyreplyupdatecheck='o'
+		where storyreplynum=#{storyReplyNum}
+	</update>
+	
+	<delete id="story_removeReply">
+		delete from story_reply where storyreplynum=#{storyReplyNum}
+	</delete>
+	<delete id="story_removeReplyByStorynum">
+		delete from story_reply where storynum=#{storyNum}
+	</delete>
+</mapper>
+
+
+

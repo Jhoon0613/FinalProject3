@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보호소</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+<body>
+	<div id="wrap">
+ 		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>     
+        <section>
+            <div class="p_title">
+                <div class="p_text">
+                    <h2>Adopt Me</h2><br>
+                    <p>사지말고 입양하는 문화를 만듭시다</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="p_txt">
+                <a class="current" th:href="${'/board/protect'}">보호동물</a>
+                <a th:href="${'/board/shelter'}">보호소</a>
+            </div>
+            <div class="p_txt2">
+                <form action="">
+                     <div>
+                      <span> 기간 : </span><input type="date" name="" id="date1">
+                    <span> ~ </span>
+                    <input type="date" name="" id="date2">
+                    <div class="radio">
+                    <input type="radio" name="11" id="1" value="31" >최근 1개월
+                    <input type="radio" name="11" id="2" value="92" >최근 3개월
+                    <input type="radio" name="11" id="3" value="184">최근 6개월
+                    </div>
+                    <div>
+                        <span> 지역 : </span><select name="" id="" onchange="categoryChange(this)">
+                        <option value>시/도 선택</option>
+                        <option value="general01">강원</option>
+                        <option value="general02">경기</option>
+                        <option value="general03">경남</option>
+                        <option value="general04">경북</option>
+                        <option value="general05">광주</option>
+                        <option value="general06">대구</option>
+                        <option value="general07">대전</option>
+                        <option value="general08">부산</option>
+                        <option value="general09">서울</option>
+                        <option value="general10">울산</option>
+                        <option value="general11">인천</option>
+                        <option value="general12">전남</option>
+                        <option value="general13">전북</option>
+                        <option value="general14">제주</option>
+                        <option value="general15">충남</option>
+                        <option value="general16">충북</option>
+                    </select>
+                    <select name="" id="state">
+                                    <option>군/구 선택</option>
+                    </select>
+                    <span> 축종 : </span><select name="" id="">
+                        <option value="">개</option>
+                        <option value="">고양이</option>
+                        <option value="">기타</option>
+                    </select>
+                </div>
+                <div>
+                    <input class="sb" type="submit" value="검색">
+                </div>
+                </form>
+            </div>
+        </section>
+            <div class="p_title2">
+				 <a th:href="${'/board/protect_in'}">
+                    <div class="p_container">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                        <div class="psub">
+                            <div class="top4">
+                                <span class="ance">공고중</span>
+                                <span class="gender">수컷</span>
+                            </div>
+                            <div class="pprotect">
+                                <table class="protect">
+                                    <tr>
+                                        <th>공고기간</th>
+                                        <td>23.10.21~23.10.31</td>
+                                    </tr>
+                                    <tr>
+                                        <th>품종</th>
+                                        <td>[고양이]한국 고양이sbbsfbfsb</td>
+                                    </tr>
+                                    <tr>
+                                        <th>지역</th>
+                                        <td>가산면 정금로 353 인근fsbsfbdss</td>
+                                    </tr>
+                                    <tr>
+                                        <th>구조장소</th>
+                                        <td>경기포천sfbsbsbfsbs</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="${'/board/protect_in'}">
+                    <div class="p_container">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                        <div class="psub">
+                            <div class="top4">
+                                <span class="ance">공고중</span>
+                                <span class="gender">수컷</span>
+                            </div>
+                            <div class="pprotect">
+                                <table class="protect">
+                                    <tr>
+                                        <th>공고기간</th>
+                                        <td>23.10.21~23.10.31</td>
+                                    </tr>
+                                    <tr>
+                                        <th>품종</th>
+                                        <td>[고양이]한국 고양이sbbsfbfsb</td>
+                                    </tr>
+                                    <tr>
+                                        <th>지역</th>
+                                        <td>가산면 정금로 353 인근fsbsfbdss</td>
+                                    </tr>
+                                    <tr>
+                                        <th>구조장소</th>
+                                        <td>경기포천sfbsbsbfsbs</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="${'/board/protect_in'}">
+                    <div class="p_container">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                        <div class="psub">
+                            <div class="top4">
+                                <span class="ance">공고중</span>
+                                <span class="gender">수컷</span>
+                            </div>
+                            <div class="pprotect">
+                                <table class="protect">
+                                    <tr>
+                                        <th>공고기간</th>
+                                        <td>23.10.21~23.10.31</td>
+                                    </tr>
+                                    <tr>
+                                        <th>품종</th>
+                                        <td>[고양이]한국 고양이sbbsfbfsb</td>
+                                    </tr>
+                                    <tr>
+                                        <th>지역</th>
+                                        <td>가산면 정금로 353 인근fsbsfbdss</td>
+                                    </tr>
+                                    <tr>
+                                        <th>구조장소</th>
+                                        <td>경기포천sfbsbsbfsbs</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="${'/board/protect_in'}">
+                    <div class="p_container">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                        <div class="psub">
+                            <div class="top4">
+                                <span class="ance">공고중</span>
+                                <span class="gender">수컷</span>
+                            </div>
+                            <div class="pprotect">
+                                <table class="protect">
+                                    <tr>
+                                        <th>공고기간</th>
+                                        <td>23.10.21~23.10.31</td>
+                                    </tr>
+                                    <tr>
+                                        <th>품종</th>
+                                        <td>[고양이]한국 고양이sbbsfbfsb</td>
+                                    </tr>
+                                    <tr>
+                                        <th>지역</th>
+                                        <td>가산면 정금로 353 인근fsbsfbdss</td>
+                                    </tr>
+                                    <tr>
+                                        <th>구조장소</th>
+                                        <td>경기포천sfbsbsbfsbs</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="${'/board/protect_in'}">
+                    <div class="p_container">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                        <div class="psub">
+                            <div class="top4">
+                                <span class="ance">공고중</span>
+                                <span class="gender">수컷</span>
+                            </div>
+                            <div class="pprotect">
+                                <table class="protect">
+                                    <tr>
+                                        <th>공고기간</th>
+                                        <td>23.10.21~23.10.31</td>
+                                    </tr>
+                                    <tr>
+                                        <th>품종</th>
+                                        <td>[고양이]한국 고양이sbbsfbfsb</td>
+                                    </tr>
+                                    <tr>
+                                        <th>지역</th>
+                                        <td>가산면 정금로 353 인근fsbsfbdss</td>
+                                    </tr>
+                                    <tr>
+                                        <th>구조장소</th>
+                                        <td>경기포천sfbsbsbfsbs</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>     
+		</section>
+    </div>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	     <script th:src="@{/board/js/board.js}"></script>
+
+
+</html>

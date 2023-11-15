@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관심 스토리</title>
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+<style>
+	.fp_thumbnail_td:hover{
+		cursor: pointer;
+	}
+</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="stylesheet" th:href="@{/board/css/mypage.css}">
+</head>
+<body>
+	<div id="wrap">
+		 <th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+		<div class="title_">
+			<div class="text_">
+       <th:block th:replace="~{layout/mpheader::mpheader}"></th:block>
+                   
+                <div class="menu_all">
+				<div class="header_text"><span>내가 쓴 게시글</span></div>
+                <article>
+	            <div class="side_menu">
+	                <div class="mypage_menu">
+	                    <strong>회원정보</strong>
+	                    <ul>
+	                        <li class="menu_info"><a href="/user/mypage">기본정보</a></li>
+	                        <li class="menu_info"><a href="/user/pwck">비밀번호 변경</a></li>
+	                        <li class="menu_info"><a href="/user/rmpwck">회원탈퇴</a></li>
+	                    </ul>
+	                </div>
+	                <div class="mypage_menu">
+	                    <strong>마이메뉴</strong>
+	                    <ul>
+	                        <li class="menu_my"><a href="/user/favoritepet">관심 동물</a></li>
+	                        <li class="menu_my"><a href="/user/myInterestStory" style="border-bottom: 3px solid #fff; font-weight: bold; color: #fff;" >관심 스토리</a></li>
+	                        <li class="menu_my"><a href="/user/mycontents" >내가 쓴 게시글</a></li>
+	                    </ul>
+	                </div>
+	            </div>
+				<div class="main_menu">
+	                <div class="mypage_info_contents">
+	                    <h2 class="myinfo">관심 스토리</h2>
+	                    <div class="fp_table">
+	                         <!--내가 쓴 글들@@@@@@@@@@@@@@@-->
+	                    </div>
+						
+	   				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		</section>
+	</div>
+        </article>
+        <section>
+            <th:block th:replace="~{layout/footer::footer}"></th:block>
+        </section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/user/js/mycontents.js" th:inline="javascript"></script>
+<script th:inline="javascript">
+	const pageForm = $("#pageForm");
+
+	$(".changePage").on("click", function (e) {
+		//e(이벤트)의 기본 작동 막기
+		e.preventDefault();
+		let pagenum = $(this).attr("href");
+		pageForm.find("input[name='pagenum']").val(pagenum);
+		pageForm.submit();
+	});
+	
+</script>
+</html>

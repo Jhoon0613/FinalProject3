@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.UserFileMapper">
+	<insert id="insertFile">
+		insert into userfile values (#{systemname},#{orgname},#{useridx})
+	</insert>
+	
+	<insert id="insertnewFile">
+		insert into userfile (systemname,orgname,useridx) values (#{systemname},#{orgname},#{useridx})
+	</insert>
+	
+	<select id="getFiles">
+		select * from userfile where useridx=#{useridx}
+	</select>
+	
+	<select id="findByUseridx">
+		select * from userfile where useridx=#{useridx}
+	</select>
+	
+	<delete id="deleteBySystemname">
+		delete from userfile where systemname=#{systemname}
+	</delete>
+	
+	<update id="updateFile">
+		update userfile set systemname=#{systemname}, orgname=#{orgname} where useridx=#{useridx}
+	</update>
+	
+</mapper>
+

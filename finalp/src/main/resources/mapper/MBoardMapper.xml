@@ -1,0 +1,74 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.MBoardMapper">
+	<sql id="cri">
+		<if test="keyword != '' and type != ''">
+			<trim prefixOverrides="or" prefix="(" suffix=") and">
+				<foreach collection="typeArr" item="type">
+					or 
+					<choose>
+						<when test="type == 'T'.toString()">
+							(findtitle like('%${keyword}%'))
+						</when>
+						<when test="type == 'A'.toString()">
+							(findarea like('%${keyword}%'))
+						</when>
+						<when test="type == 'W'.toString()">
+							(userid like('%${keyword}%'))
+						</when>
+					</choose>
+				</foreach>
+			</trim>
+		</if> 
+	</sql>
+	
+	<insert id="insertBoard">
+		insert into petfind (userid,findtitle,pettype,findarea,findareadetail,findcontents,category,petsex,petage,petweight,petchar,petcolor,phonenum,regdate,findareadetail2,neutering) 
+		values (#{userid},#{findtitle},#{pettype},#{findarea},#{findareadetail},#{findcontents},#{category},#{petsex},#{petage},#{petweight},#{petchar},#{petcolor},#{phonenum},#{regdate},#{findareadetail2},#{neutering})
+	</insert>
+	
+	<update id="updateReadCount">
+		update petfind set readcount = readcount+1 where boardnum = #{boardnum}
+	</update>
+	<update id="updateBoard">
+		update petfind set findtitle=#{findtitle}, findcontents=#{findcontents},pettype=#{pettype},findarea=#{findarea},findareadetail=#{findareadetail},category=#{category},petsex=#{petsex},petage=#{petage},petweight=#{petweight},
+		petchar=#{petchar},petcolor=#{petcolor},phonenum=#{phonenum},regdate=#{regdate},findareadetail2=#{findareadetail2},neutering=#{neutering}
+		where boardnum=#{boardnum}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from petfind where boardnum=#{boardnum}
+	</delete>
+	
+	<select id="getMlist">
+		select * from petfind where category='실종' and
+		<include refid="cri"></include>
+		<![CDATA[ 
+			0 < boardnum order by boardnum desc limit #{startrow},#{amount}
+		]]>
+	</select>
+	<select id="getRlist">
+		select * from petfind where category='목격' and
+		<include refid="cri"></include>
+		<![CDATA[ 
+			0 < boardnum order by boardnum desc limit #{startrow},#{amount}
+		]]>
+	</select>
+	<select id="getMTotal">
+		select count(*) from petfind where category='실종' and
+		<include refid="cri"></include> boardnum > 0
+	</select>
+	<select id="getRTotal">
+		select count(*) from petfind where category='목격' and
+		<include refid="cri"></include> boardnum > 0
+	</select>
+	<select id="getLastNum">
+		select max(boardnum) from petfind where userid=#{userid}
+	</select>
+	<select id="findByNum">
+		select * from petfind where boardnum=#{boardnum}
+	</select>
+</mapper>
+
+
+

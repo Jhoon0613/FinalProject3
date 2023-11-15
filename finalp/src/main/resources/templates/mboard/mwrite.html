@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>실종/제보 글쓰기</title>
+	<style>
+
+	</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+
+<body>
+	<div id="wrap">
+		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+		<section>
+			<div class="p_title1">
+				<div class="p_text">
+					<h2>실종/제보</h2><br>
+					<p>가족에게 돌아갈수있게 도와주세요</p>
+				</div>
+				<div class="p_images">
+					<img src="" alt="">
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="r_title">
+				<div class="info">
+					<h2>기본정보</h2>
+				</div>
+				<form id="boardForm" method="post" name="boardForm" th:action="@{/mboard/mwrite}"
+					enctype="multipart/form-data">
+					<input type="hidden" th:value="${cri.pagenum}" name="pagenum">
+					<input type="hidden" th:value="${cri.amount}" name="amount">
+					<input type="hidden" th:value="${cri.type}" name="type">
+					<input type="hidden" th:value="${cri.keyword}" name="keyword">
+					<table class="info_txt1">
+						<tr>
+							<th>상태</th>
+							<td colspan="2">
+								<select name="category" id="">
+									<option value="전체">전체</option>
+									<option value="실종">실종</option>
+									<option value="목격">목격</option>
+									<option value="완료">완료</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td colspan="2">
+								<input type="text" name="userid" th:value="${session.loginUser}" readonly>
+							</td>
+						</tr>
+						<tr>
+							<th>날짜</th>
+							<td colspan="2">
+								<input type="date" name="regdate">
+							</td>
+						</tr>
+						<tr>
+							<th>지역</th>
+							<td>
+								<select name="findarea" onchange="categoryChange(this)">
+									<option value>시/도 선택</option>
+									<option value="강원">강원</option>
+									<option value="경기">경기</option>
+									<option value="경남">경남</option>
+									<option value="경북">경북</option>
+									<option value="광주">광주</option>
+									<option value="대구">대구</option>
+									<option value="대전">대전</option>
+									<option value="부산">부산</option>
+									<option value="서울">서울</option>
+									<option value="울산">울산</option>
+									<option value="인천">인천</option>
+									<option value="전남">전남</option>
+									<option value="전북">전북</option>
+									<option value="제주">제주</option>
+									<option value="충남">충남</option>
+									<option value="충북">충북</option>
+								</select>
+							</td>
+							<td>
+								<select name="findareadetail" id="state">
+									<option>군/구 선택</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>장소</th>
+							<td colspan="2">
+								<input type="text" name="findareadetail2" id="findareadetail2"
+									placeholder="구체적인 장소를 적어주세요.">
+							</td>
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td colspan="2">
+								<input type="text" name="phonenum" placeholder="연락처를 남겨주세요.">
+							</td>
+						</tr>
+					</table>
+					<div class="info">
+						<h2>동물정보</h2>
+					</div>
+					<table class="info_txt1">
+						<tr>
+							<th>품종</th>
+							<td>
+								<select name="pettype">
+									<option value="개">개</option>
+									<option value="고양이">고양이</option>
+									<option value="기타">기타</option>
+								</select>
+							</td>
+							<td colspan="2">
+								<input type="text" name="findtitle" placeholder="품종을 적어주세요">
+							</td>
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td>
+								<select name="petsex">
+									<option value="미확인">미확인</option>
+									<option value="암컷">암컷</option>
+									<option value="수컷">수컷</option>
+								</select>
+							</td>
+							<td colspan="2">
+								중성화 &nbsp;&nbsp;&nbsp;
+								완료<input type="radio" class="r3"name="neutering" value="O"><label for="neutering"></label>
+								미완료<input type="radio" class="r3"name="neutering" value="X"><label for="neutering"></label>
+							</td>
+						</tr>
+						<tr>
+							<th>나이</th>
+							<td>
+								<input type="text" name="petage" placeholder="'n'살">
+							</td>
+							<th>몸무게</th>
+							<td>
+								<input type="text" name="petweight" placeholder="'n'kg">
+							</td>
+						</tr>
+						<tr>
+							<th>털색</th>
+							<td colspan="3">
+								<input type="text" name="petcolor" placeholder="털색을 설명해주세요.">
+							</td>
+						</tr>
+						<tr>
+							<th>특징</th>
+							<td colspan="3">
+								<input type="text" name="petchar" placeholder="눈에 띄는 특징을 적어주세요">
+							</td>
+						</tr>
+						<tr>
+							<th>기타</th>
+							<td colspan="3">
+								<input type="text" name="findcontents" placeholder="기타사항을 입력해주세요">
+							</td>
+						</tr>
+						<tr class="r0 at">
+							<th>파일 첨부1</th>
+							<td class="file0_cont" colspan="3">
+								<div class="m_file">
+									<input type="file" name="files" id="file0" style="display:none">
+									<span id="file0name">선택된 파일 없음</span>
+									<a href="javascript:upload('file0')">파일 선택</a>
+									<a href="javascript:cancelFile('file0')">첨부 삭제</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="info1">
+						<input type="submit" name="submit" value="등록하기">
+					</div>
+				</form>
+			</div>
+		</section>
+		<section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+	</div>
+</body>
+
+<script th:src="@{/board/js/mboard.js}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	let i = 0;
+	function upload(name) {
+		$("#" + name).click();
+	}
+	//$(선택자).change(함수) : 해당 선택자의 요소에 변화가 일어난다면 넘겨주는 함수 호출
+	$("[type='file']").change(function (e) {
+		//e : 파일이 업로드된 상황 자체를 담고있는 객체
+		//e.target : 파일이 업로드가 된 input[type=file] 객체(태그객체)
+		//e.target.files : 파일태그에 업로드를 한 파일 객체들의 배열
+		const file = e.target.files[0];
+		const fileTag = e.target;
+
+		if (file == undefined) {
+			//파일이 업로드 되었다가 없어진 경우
+			cancelFile(fileTag.id);
+		}
+		else {
+			//파일이 없었다가 업로드 한 경우
+			//#file0name
+			$("#" + fileTag.id + "name").text(file.name);
+			//업로드 된 파일의 확장자명
+			let ext = file.name.split(".").pop();
+			if (ext == 'jpeg' || ext == 'jpg' || ext == 'png' || ext == 'gif' || ext == 'webp') {
+				$("." + fileTag.id + "_cont .thumbnail").remove();
+				const reader = new FileReader();
+
+				reader.onload = function (ie) {
+					const img = document.createElement("img");
+					img.setAttribute("src", ie.target.result)
+					img.setAttribute("class", "thumbnail");
+					document.querySelector("." + fileTag.id + "_cont").appendChild(img);
+				}
+				reader.readAsDataURL(file);
+			}
+			else {
+				const temp = $("." + fileTag.id + "_cont .thumbnail");
+				if (temp != null) {
+					temp.remove();
+				}
+			}
+			//가장 마지막 파일 선택 버튼을 눌렀을 때
+			if (fileTag.id.split("e")[1] == i) {
+				const cloneElement = $(".r" + i).clone(true);
+				i++;
+				cloneElement.appendTo("#boardForm > table:nth-child(7) > tbody")
+				const lastElement = $("#boardForm > table:nth-child(7) > tbody").children().last();
+
+				lastElement.attr("class", "r" + i + " at");
+				lastElement.children("th").text("파일 첨부" + (i + 1));
+				lastElement.children("td").attr("class", "file" + i + "_cont");
+
+				lastElement.find("input[type='file']").attr("name", "files");
+				lastElement.find("input[type='file']").attr("id", "file" + i);
+				lastElement.find("input[type='file']").val("");
+
+				lastElement.find("span").attr("id", "file" + i + "name");
+				lastElement.find("span").text("선택된 파일 없음");
+
+				lastElement.find("a")[0].href = "javascript:upload('file" + i + "')";
+				lastElement.find("a")[1].href = "javascript:cancelFile('file" + i + "')"
+			}
+
+		}
+	})
+
+	function cancelFile(name) {
+		//가장 마지막 첨부 삭제 버튼을 누른 경우
+		if (name.split("e")[1] == i) {return;}
+		//현재 업로드된 파일이 여러개일 때
+		if (i != 0) {
+			//tr지우기
+			let temp = Number(name.split("e")[1]);
+			//해당 행 지우기
+			$(".r" + temp).remove();
+			//지워진 다음 행 부터 숫자 바꿔주기
+			for (let j = temp + 1; j <= i; j++) {
+				const el = $("#boardForm tbody").find(".r" + j);
+				el.attr("class", "r" + (j - 1) + " at");
+
+				el.children('th').text("파일 첨부" + j);
+
+				el.children('td').attr("class", "file" + (j - 1) + "_cont");
+
+				const fileTag = el.find("input[type='file']");
+				fileTag.attr("name", "file" + (j - 1));
+				fileTag.attr("id", "file" + (j - 1));
+
+				el.find("span").attr("id", "file" + (j - 1) + "name");
+
+				el.find("a")[0].href = "javascript:upload('file" + (j - 1) + "')"
+				el.find("a")[1].href = "javascript:cancelFile('file" + (j - 1) + "')"
+
+			}
+			i--;
+		}
+	}
+	function sendit() {
+		const boardForm = document.boardForm;
+
+		const boardtitle = boardForm.boardtitle;
+		if (boardtitle.value == "") {
+			alert("제목을 입력하세요!");
+			boardtitle.focus();
+			return false;
+		}
+
+		const boardcontents = boardForm.boardcontents;
+		if (boardcontents.value == "") {
+			alert("내용을 입력하세요!");
+			boardcontents.focus();
+			return false;
+		}
+
+		boardForm.submit();
+	}
+
+</script>
+
+</html>

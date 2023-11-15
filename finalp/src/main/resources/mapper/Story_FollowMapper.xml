@@ -1,0 +1,70 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.Story_FollowMapper">
+	<insert id="followingWhenExisting">
+		insert into story_following(storyfollowing) values(#{whom})
+		where storywriter=#{storyWriter}
+	</insert>
+	<insert id="addFollowerWhenExisting">
+		insert into story_follower(storyfollower) values(#{storyWriter})
+		where storyWriter=#{whom}
+	</insert>
+	
+	<insert id="followingWhenNotExisting">
+		insert into story_following(storywriter, storyfollowing)
+		values(#{storyWriter}, #{whom})
+	</insert>
+	<insert id="addFollowerWhenNotExisting">
+		insert into story_follower(storywriter, storyfollower)
+		values(#{whom}, #{storyWriter})
+	</insert>
+	
+	
+	
+	
+	<delete id="cancelFollowing">
+		delete from story_following
+		where storyWriter=#{storyWriter}
+	</delete>
+	<delete id="removeFollower">
+		delete from story_follower
+		where storyfollower=#{storyWriter}
+	</delete>
+	
+	
+	
+	
+	<select id="isStoryWriterInFollowing">
+		select * from story_following
+		where storyWriter=#{storyWriter}
+		and not exists(
+			select * from story_following fw
+			where fw.storyWriter = story_following.storyWriter
+			and fw.storyfollowing = story_following.storyfollowing
+			and fw.storyWriter = story_following.storyfollowing
+		)
+	</select>
+	<select id="isStoryWriterInFollower">
+		select * from story_follower
+		where storyWriter=#{storyWriter}
+		and storyfollower is not null
+	</select>
+	
+	
+	<select id="whoLoginUserFollowed">
+		select * from story_following
+		where storyWriter=#{loginUser}
+		and storyfollowing=#{whom}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="stylesheet"th:href="@{/board/css/modify.css}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		 <th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+         <div class="title_">
+                <div class="text_">
+                    <th:block th:replace="~{layout/mpheader::mpheader}"></th:block>
+                <div class="menu_all">
+					<div class="header_text"><span>회원 탈퇴</span></div>
+                <article>
+            <div class="side_menu">
+                <div class="mypage_menu">
+                    <strong>회원정보</strong>
+                    <ul>
+                        <li class="menu_info"><a href="/user/mypage" >기본정보</a></li>
+                        <li class="menu_info"><a href="/user/pwck">비밀번호 변경</a></li>
+                        <li class="menu_info"><a href="/user/rmpwck" style="border-bottom: 3px solid #fff; font-weight: bold; color: #fff;">회원탈퇴</a></li>
+                    </ul>
+                </div>
+                <div class="mypage_menu">
+                    <strong>마이메뉴</strong>
+                    <ul>
+                        <li class="menu_my"><a href="/user/favoritepet" >관심 동물</a></li>
+                        <li class="menu_my"><a href="">관심 스토리</a></li>
+                        <li class="menu_my"><a href="">내 스토리</a></li>
+                        <li class="menu_my"><a href="/user/mycontents">내가 쓴 게시글</a></li>
+                    </ul>
+                </div>
+            </div>
+        <div class="main_menu">
+            <div class="mypage_info_contents">
+                <h2 class="myinfo">회원 탈퇴</h2>
+                <form id="removeForm" name="removeForm" method="post" action="/user/remove" onsubmit="return remove()">
+                <table class="info_table">
+					<input type="hidden" name="userid" id="userid" th:value="${loginUser}" readonly>
+                  <tr>
+					  <th>탈퇴 사유</th>
+					  <td>
+                    <select name="reason" id="reason" required>
+                  <option value="--:--">탈퇴 사유를 선택해주세요</option>
+                  <option value="10:00">더 이상 도움이 필요 없어요!</option>
+                  <option value="10:30">기타</option>
+                  </select>
+                  </td>
+                  </tr>
+                 
+                    <tr>
+                        <td colspan="2">
+                            <div class="btn_pwck">
+                                <!--<input type="submit" value="확인" id="checkPwd">-->
+                                <input type="submit" id="removeButton" class="submit" value="탈퇴하기">
+                                <!--<button id="removeButton" class="submit" value="탈퇴하기">탈퇴하기</button>-->
+                                <a href="/user/rmpwck">뒤로가기</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+            </article>
+            <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+    </div>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/user/js/rmpwcheck.js}"></script>
+</html>

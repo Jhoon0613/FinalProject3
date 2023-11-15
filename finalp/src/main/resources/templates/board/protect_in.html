@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보호소</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+<body>
+    <div id="wrap">
+ 		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>            
+        <section>
+            <div class="p_title">
+                <div class="p_text">
+                    <h2>Adopt Me</h2><br><br>
+                    <p>사지말고 입양하는 문화를 만듭시다</p>
+                </div>
+                <div class="p_images">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="p_txt">
+                <a class="current" th:href="${'/board/protect'}">보호동물</a>
+                <a th:href="${'/board/shelter'}">보호소</a>
+            </div>
+        </section>
+        <section>
+            <div class="p_title3">
+                <div class="p_container1">
+                    <img th:src="@{/board/images/p1.png}" alt="">
+                    <table class="protect1">
+                        <tr>
+                            <th colspan="2">[개] 믹스견</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">암컷/ 갈/흰/ 2021(년생)/ 8.7(Kg)</td>
+                        </tr>
+                        <tr>
+                            <td class="t">입양날짜</td>
+                            <td>9 일 후 입양가능</td>
+                        </tr>
+                        <tr>
+                            <td class="t">공고번호</td>
+                            <td>경기-포천-2023-00967</td>
+                        </tr>
+                        <tr>
+                            <td class="t">공고기간</td>
+                            <td>2023-10-21~2023-10-31</td>
+                        </tr>
+                        <tr>
+                            <td class="t">발견장소</td>
+                            <td>군내면 청군로 3426 인근</td>
+                        </tr>
+                        <tr>
+                            <td class="t">특이사항</td>
+                            <td>때탄 베이지색바탕 빨간줄ㄹ무늬 목줄,오른어금니 약간깨짐...</td>  
+                        </tr>
+                        <tr>
+                            <td class="t">보호센터</td>
+                            <td>한국동물구조관리협회(Tel:031-867-9119)</td>
+                        </tr>
+                        <tr>
+                            <td class="t">담당부서</td>
+                            <td>경기도 포천시청(Tel:031-538-3883)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">*전화문의는 평일 오전 9시부터 6시까지(공휴일 제외)</td>
+                        </tr>
+                    </table>
+                    <form>
+						<div class="heart">
+                            <div class="like3">
+                                    <img  th:src="@{/board/images/fullhrt.png}" alt="">
+                                </div>
+                                <div class="like4">
+                                    <img th:src="@{/board/images/emptyhrt.png}" alt="">
+                              </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="btncss">
+                    <a href="#">목록</a>
+                </div>
+            </div>
+        </section>
+        <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>     
+		</section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(".like3").click(function(){
+	    $(this).next().show();
+	    $(this).hide();
+	})
+	$(".like4").click(function(){
+	    $(this).prev().show();
+	    $(this).hide();
+	})
+</script>
+</html>

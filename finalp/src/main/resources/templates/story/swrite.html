@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스토리 쓰기</title>
+<style>
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+<body>
+	<div id="wrap">
+ 		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+ 		<section>
+			 <div class="p_title">
+                <div class="p_text">
+                    <h2>스토리</h2><br>
+                    <p>입양후기를 만나보세요</p>
+                </div>
+                <div class="p_images">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="s_title1">
+                <th:block th:with="ifModify = ${modify == 'modify'}">
+					<form onsubmit="return beforeSend();" th:action="@{${ifModify?'/story/storylist/modify':'/story/storylist/regist'}}" method="POST" enctype="multipart/form-data">
+						<div class="s_top">
+		                    <img class="userimg" th:src="@{/board/images/p1.png}" alt="">
+		                    <p class="s_uid" th:text="${session.loginUser}"></p>
+		                    
+		                    <th:block th:if="${storynum != null}">
+								<input type="text" name="storynum" th:value="${storynum}" style="display: none;" readonly>
+							</th:block>
+		                    
+		                    <select name="storyCategory" id="board">
+		                        <option value="">게시판선택</option>
+		                        <option value="adoptReview" th:selected="${swDTO != null && swDTO.storyCategory == 'adoptReview'}">입양후기</option>
+		                    </select>
+		                </div>
+		                <div class="s_contents">
+		                    <div class="s_thumbnail" th:style="'background-image:url('+ @{/board/images/img2.png} +');'">
+								<th:block th:if="${fList != null}">
+									<th:block th:each="i : ${#numbers.sequence(0, fList.size()-1)}">
+										<img th:class="'thumbnail'+${i}" th:src="@{/story/thumbnail (systemname=${fList.get(i).systemName})}" alt="">
+									</th:block>
+								</th:block>
+								<th:block th:if="${fList == null}">
+								</th:block>
+		                    </div>
+		                    <div class="boardcnts">
+		                        <textarea th:text="${swDTO != null ? swDTO.storyContents : ''}"
+		                        name="storyContents" id="storyContents" placeholder="내용을 입력하세요."></textarea>
+		                    </div>
+		                    <!--<input type="hidden" name="storyWriter" th:value="${session.loginUser}">-->
+		                    <input type="hidden" name="storyWriter" th:value="${swDTO != null ? swDTO.storyWriter : session.loginUser}">
+		                </div>
+		                <div id="fileContainer">
+							<div th:class="${'s_file fileCon'+fileStat.index}" th:if="${fList != null && fList.size() > 0}" th:each="file : ${fList}">
+								<input type="text" name="orgFiles" th:id="${'file'+fileStat.index}" th:value="${file.orgName}" readonly>
+			                    <span th:id="${'file'+fileStat.index+'name'}" th:text="${file.orgName}"></span>
+								<a th:href="'javascript:upload('+${fileStat.index}+')'">파일 선택</a>
+								<a th:href="'javascript:removeFile('+${fileStat.index}+')'">첨부 삭제</a>
+		                	</div>
+							<div th:class="'s_file fileCon'+${fList != null ? fList.size() : 0}">
+			                    <span th:id="'file'+${fList != null ? fList.size() : 0}+'name'">선택된 파일 없음</span>
+								<a th:href="'javascript:upload('+${fList != null ? fList.size() : 0}+')'">파일 선택</a>
+								<a th:href="'javascript:removeFile('+${fList != null ? fList.size() : 0}+')'">첨부 삭제</a>
+		                	</div>
+						</div>
+		                <div class="s_btn">
+		                    <input type="submit" th:value="${modify != null && modify == 'modify' ? '수정하기' : '등록하기'}">
+		                </div>
+					</form>
+				</th:block>
+            </div>
+        </section>
+        <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/board/js/swrite.js}"></script>
+</html>

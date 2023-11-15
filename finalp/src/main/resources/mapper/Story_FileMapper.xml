@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.Story_FileMapper">
+	<insert id="story_insertFile">
+		insert into story_file values(#{systemName},#{orgName},#{storyNum})
+	</insert>
+	
+	<select id="story_getFiles">
+		<![CDATA[
+		select * from story_file
+		where storynum >= #{minstorynum} and storynum <= #{maxstorynum}
+		]]>
+	</select>
+	<select id="story_getFilesByStorynum">
+		select * from story_file where storyNum=#{storyNum}
+	</select>
+	
+	<delete id="story_removeFileByStorynum">
+		delete from story_file where storynum=#{storyNum}
+	</delete>
+	<delete id="story_removeFileBySystemname">
+		delete from story_file where systemname=#{systemname}
+	</delete>
+</mapper>
+
+
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보호소</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+</head>
+<body>
+    <div id="wrap">
+  		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>          
+        <section>
+            <div class="p_title">
+                <div class="p_text">
+                    <h2>Adopt Me</h2><br>
+                    <p>사지말고 입양하는 문화를 만듭시다</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="p_txt">
+                <a  th:href="${'/board/protect'}">보호동물</a>
+                <a class="current" th:href="${'/board/shelter'}">보호소</a>
+            </div>
+        </section>
+        <section>
+            <div class="s_title2">
+                <div class="s_img1">
+                    <table class="shelter">
+                        <tr>
+                            <th>동대문구청</th>
+                        </tr>
+                        <tr>
+                            <td>서울특별시 동대문구 천호대로 145</td>
+                        </tr>
+                        <tr>
+                            <td>02-2127-4268</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="s_img1">
+                        <table class="shelter">
+                            <tr>
+                                <th>동대문구청</th>
+                            </tr>
+                            <tr>
+                                <td>서울특별시 동대문구 천호대로 145</td>
+                            </tr>
+                            <tr>
+                                <td>02-2127-4268</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </section>
+        <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>     
+		</section>
+    </div>
+</body>
+    <script>
+	
+</script>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>제보</title>
+<style>
+	
+</style>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+<style>
+
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+		<section>
+			<div class="p_title">
+				<div class="p_text">
+					<h2>실종/제보</h2><br>
+					<p>가족에게 돌아갈수있게 도와주세요</p>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="p_txt1">
+				<a th:href="${'/mboard/mlist'}">실종</a>
+				<a class="current" th:href="${'/mboard/rlist'}">제보</a>
+				<form id="searchForm" th:action="@{/mboard/mlist}">
+		<div class="search_area">
+			<select name="type">
+				<option value="" th:selected="${pageMaker.cri.type == null}">검색</option>
+				<option value="T" th:selected="${pageMaker.cri.type == 'T'}">종류</option>
+				<option value="A" th:selected="${pageMaker.cri.type == 'A'}">지역</option>
+				<option value="W" th:selected="${pageMaker.cri.type == 'W'}">작성자</option>
+				<option value="TA" th:selected="${pageMaker.cri.type == 'TA'}">종류 또는 지역</option>
+				<option value="TW" th:selected="${pageMaker.cri.type == 'TW'}">종류 또는 작성자</option>
+				<option value="TAW" th:selected="${pageMaker.cri.type == 'TAW'}">종류 또는 지역 또는 작성자</option>
+			</select>
+			<input type="text" name="keyword" id="keyword" th:value="${pageMaker.cri.keyword}">
+			<a href="#" class="m_button">검색</a>
+		</div>
+		<input type="hidden" value="1" name="pagenum">
+		<input type="hidden" value="9" name="amount">
+	</form>
+			</div>
+		</section>
+		<section>
+			<div class="m_title">
+				<th:block th:if="${list != null and list.size()>0}" th:each="board : ${list}">
+					<div th:if="${board.category} == '목격'">
+						<a class="get" th:href="${board.boardnum}">
+							<table class="missing">
+								<tr>
+									<td colspan="3">
+										<img style="width: 100%;" class="thumbnail" th:src="@{/mboard/thum (boardnum=${board.boardnum})}">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										[[${board.findtitle}]]
+									</td>
+									<td>
+										<th:block th:if="${board.petsex} == '수컷'">
+											<img class="gender1" th:src="@{/board/images/boy.png}" alt="">
+										</th:block>
+										<th:block th:if="${board.petsex} == '암컷'">
+											<img class="gender1" th:src="@{/board/images/girl.png}" alt="">
+										</th:block>
+									</td>
+									<td class="report">[[${board.category}]]</td>
+								</tr>
+								<tr>
+									<td>[[${board.petage}]]</td>
+									<td>[[${board.petweight}]]</td>
+									<td>[[${board.petchar}]]</td>
+								</tr>
+								<tr>
+									<td>
+										<img class="icon" th:src="@{/board/images/clock.png}" alt="">
+									</td>
+									<td class="m_txt" colspan="2">
+										[[${board.regdate}]]
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img class="icon" th:src="@{/board/images/location.png}" alt="">
+									</td>
+									<td class="m_txt" colspan="2">
+										[[${board.findarea}]]
+										[[${board.findareadetail}]]
+										[[${board.findareadetail2}]]
+									</td>
+								</tr>
+							</table>
+						</a>
+					</div>
+				</th:block>
+			</div>
+			<table class="pagination" th:if="${list != null and list.size()>0}">
+				<tr align="center" valign="middle">
+					<td>
+						<a class="changePage" th:if="${pageMaker.prev}" th:href="${pageMaker.startPage-1}">&lt;</a>
+						<th:block th:each="i : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+							<span class="nowPage" th:text="${i}" th:if="${pageMaker.cri.pagenum == i}"></span>
+							<a class="changePage" th:href="${i}" th:text="${i}"
+								th:unless="${pageMaker.cri.pagenum == i}"></a>
+						</th:block>
+						<a class="changePage" th:if="${pageMaker.next}" th:href="${pageMaker.endPage+1}">&gt;</a>
+					</td>
+				</tr>
+			</table>
+			<div class="m_write">
+				<a th:href="${'/mboard/mwrite'+pageMaker.cri.listLink}">
+					<img th:src="@{/board/images/write.png}" alt="">
+				</a>
+			</div>
+		</section>
+	</div>
+	<form name="pageForm" id="pageForm" th:action="@{/mboard/rlist}">
+		<input type="hidden" name="pagenum" th:value="${pageMaker.cri.pagenum}">
+		<input type="hidden" name="amount" th:value="${pageMaker.cri.amount}">
+		<input type="hidden" name="type" th:value="${pageMaker.cri.type}">
+		<input type="hidden" name="keyword" th:value="${pageMaker.cri.keyword}">
+	</form>
+	</section>
+	<section>
+		<th:block th:replace="~{layout/footer::footer}"></th:block>
+	</section>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+	const searchForm = $("#searchForm");
+	const pageForm = $("#pageForm");
+	
+	$(".changePage").on("click",function(e){
+		//e(이벤트)의 기본 작동 막기
+		e.preventDefault();
+		let pagenum = $(this).attr("href");
+		pageForm.find("input[name='pagenum']").val(pagenum);
+		pageForm.submit();
+	});
+	$(".get").on("click",function(e){
+		e.preventDefault();
+		let boardnum = $(this).attr("href");
+		let url=/*[[@{/mboard/mget}]]*/'';
+		pageForm.append("<input type='hidden' name='boardnum' value='"+boardnum+"'>")
+		pageForm.attr("action",url);
+		pageForm.attr("method","get");
+		pageForm.submit();
+	})
+	
+	$("#searchForm a").on("click",sendit);
+	function sendit(){
+		if(!searchForm.find("option:selected").val()){
+			alert("검색 기준을 선택하세요!");
+			return false;
+		}
+		if(!$("input[name='keyword']").val()){
+			alert("키워드를 입력하세요!");
+			return false;
+		}
+		searchForm.submit();
+	}
+</script>
+</html>

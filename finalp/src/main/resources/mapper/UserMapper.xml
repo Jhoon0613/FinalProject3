@@ -1,0 +1,66 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.UserMapper">
+		<sql id="cri">
+		<if test="keyword != '' and type != ''">
+			<trim prefixOverrides="or" prefix="(" suffix=") and">
+				<foreach collection="typeArr" item="type">
+					or 
+					<choose>
+						<when test="type == 'T'.toString()">
+							(findtitle like('%${keyword}%'))
+						</when>
+						<when test="type == 'A'.toString()">
+							(findarea like('%${keyword}%'))
+						</when>
+						<when test="type == 'W'.toString()">
+							(userid like('%${keyword}%'))
+						</when>
+					</choose>
+				</foreach>
+			</trim>
+		</if> 
+	</sql>
+	
+	<insert id="insertUser">
+		insert into users (userid,userpw,username,usergender,zipcode,addr,addrdetail,usernickname,phonenum)
+		values(#{userid},#{userpw},#{username},#{usergender},#{zipcode},#{addr},#{addrdetail},#{usernickname},#{phonenum})
+	</insert>
+	<update id="updateUser">
+		update users set username=#{username}, zipcode=#{zipcode}, addr=#{addr}, addrdetail=#{addrdetail},
+		usernickname=#{usernickname},phonenum=#{phonenum}
+		where userid=#{userid}
+	</update>
+	<update id="updateUserPw">
+		update users set userpw=#{userpw} where userid=#{userid}
+	</update>
+	<delete id="deleteUser">
+		delete from users where userid=#{userid}
+	</delete>
+	<select id="findById">
+		select * from users where userid=#{userid}
+	</select>
+		<select id="findByNId">
+		select * from users where usernickname=#{usernickname}
+	</select>
+	<select id="findByPw">
+		select * from users where userpw=#{userpw}
+	</select>
+	<select id="getUserList">
+		select * from users where userid=#{userid},username=#{username},zipcode=#{zipcode},addr=#{addr},addrdetail=#{addrdetail},
+		 usernickname=#{usernickname},phonenum=#{phonenum}
+	</select>
+	<select id="getUserNum">
+		select * from users where useridx=#{useridx}
+	</select>
+	<select id="getLastNum">
+		select * from users where userid=#{userid}
+	</select>
+	<select id="checkUser">
+		select * from users where userid=#{userid} and userpw=#{checkPassword}
+	</select>
+		<select id="getTotal">
+		select count(*) from petfind where
+		<include refid="cri"></include> boardnum > 0
+	</select>
+</mapper>

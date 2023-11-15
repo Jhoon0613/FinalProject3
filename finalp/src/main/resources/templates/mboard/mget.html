@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>제보</title>
+	<style>
+		.g_reply {
+			padding: 50px;
+			margin: auto;
+			width: 900px;
+			height: 100%;
+			background-color: #D7E2F0;
+		}
+
+		.reply_box {
+			margin: auto;
+			padding: 30px;
+			width: 800px;
+			height: 100%;
+			border: 2px solid #4A5F7B;
+			border-radius: 30px;
+			background-color: white;
+		}
+
+		.g_txt>p {
+			font-size: 20px;
+			color: #668cbd;
+			font-weight: 500;
+			padding: 10px;
+		}
+
+		.replycnt2 {
+			padding: 10px;
+			width: 750px;
+			margin-top: 5px;
+			font-size: 18px;
+			font-weight: 400;
+			color: black;
+			/* border: 1px solid black; */
+			word-break: break-all;
+			/* display: none; */
+		}
+
+		.uid4 {
+			border: 1px solid black;
+			border-radius: 5px;
+			background-color: white;
+			padding: 1px 3px;
+			font-size: 13px;
+			color: black;
+		}
+
+		.replycnt2 .uid1,
+		.replycnt2 .uid2 {
+			border-bottom: 1px solid lightgray;
+
+		}
+
+		.replycnt2 td {
+			vertical-align: text-top;
+			padding: 10px;
+			font-size: 20px;
+		}
+
+		.wreply {
+			margin-top: 20px;
+			display: flex;
+			/* border: 1px solid black; */
+		}
+
+		.wreply p {
+			color: #668cbd;
+			font-size: 20px;
+			font-weight: 500;
+			padding: 10px;
+			width: 100px;
+			text-align: center;
+		}
+
+		.wreply input {
+			border: 1px solid #4A5F7B;
+			border-radius: 5px 0px 0px 5px;
+			font-size: 20px;
+			width: 530px;
+		}
+
+		.wreply a {
+			font-size: 17px;
+			font-weight: 500;
+			letter-spacing: 2px;
+			border-radius: 0px 5px 5px 0px;
+			padding: 10px;
+			color: white;
+			background-color: #668cbd;
+			text-align: center;
+			width: 90px;
+			margin-right: 10px;
+		}
+
+		.uid3 {
+			white-space: normal;
+		}
+
+		.page {
+			text-align: center;
+		}
+
+		.page a {
+			text-align: center;
+			line-height: 24px;
+			width: 24px;
+			font-size: 17px;
+			margin-right: 5px;
+		}
+	.m_btn{
+		width: 800px;
+		
+		position: absolute;
+	}
+	.left, .right{
+			position: absolute;
+			top: 200px;
+		}
+		.prev, .next{
+			position: relative;
+		}
+		.right{
+			right: 0px;
+		}
+		.left{
+			left: 0px;
+		}
+	</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="icon" th:href="@{/board/images/flogo.png}" />
+</head>
+
+<body>
+	<div id="wrap">
+		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+		<section>
+			<div class="p_title1">
+				<div class="p_text">
+					<h2>실종/제보</h2><br>
+					<p>가족에게 돌아갈수있게 도와주세요</p>
+				</div>
+				<div class="p_images">
+					<img src="" alt="">
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="p_txt">
+				<a class="current" th:href="${'/mboard/mlist'}">실종</a>
+				<a th:href="${'/mboard/rlist'}">제보</a>
+			</div>
+		</section>
+		<section>
+			<div class="r_title">
+				<div class="r_container">
+					<th:block th:if="${files != null and files.size() > 0}" th:each="file : ${files}">
+						<th:block th:with="sar=${file.orgname.split('[.]')}">
+							<th:block th:with="ext=${sar[sar.length-1]}">
+								<tr
+									th:if="${ext == 'jpg' or ext == 'jpeg' or ext == 'png' or ext == 'gif' or ext == 'webp'}">
+									<td>
+										<img class="myslides" style="width:100%;"
+											th:src="@{/mboard/thumbnail (systemname=${file.systemname})}">
+									</td>
+								</tr>
+							</th:block>
+						</th:block>
+					</th:block>
+					<th:block th:if="${files != null and files.size() > 1}">
+						<div class="m_btn">
+							<a style="width: 100px; height: 100px;" class="left" onclick="plusDivs(-1)"><img class="prev"
+									style="border: none; width: 100px; height: 100px;" th:src="@{/board/images/left.png}"
+									alt=""></a>
+							<a style="width: 100px; height: 100px;" class="right" onclick="plusDivs(+1)"><img class="next"
+									style="border: none; width: 100px; height: 100px;" th:src="@{/board/images/right.png}"
+									alt=""></a>
+						</div>
+					</th:block>
+					<table class="report1">
+						<tr>
+							<th colspan="4">[[${board.pettype}]] ( [[${board.findtitle}]] )</th>
+						</tr>
+						<tr>
+							<th class="miss1" colspan="4">[[${board.category}]]</th>
+						</tr>
+						<tr>
+							<td>[[${board.petsex}]] (중성화 : [[${board.neutering}]]) </td>
+							<td>[[${board.petage}]]</td>
+							<td>[[${board.petweight}]]</td>
+							<td>[[${board.petcolor}]]</td>
+						</tr>
+						<tr>
+							<td class="r1">날 짜 : </td>
+							<td colspan="3">[[${board.regdate}]]</td>
+						</tr>
+						<tr>
+							<td class="r1">장 소 : </td>
+							<td colspan="3">[[${board.findarea}]] [[${board.findareadetail}]]
+								[[${board.findareadetail2}]]</td>
+						</tr>
+						<tr>
+							<td class="r1">특 징 : </td>
+							<td colspan="3">[[${board.petchar}]]</td>
+						</tr>
+						<tr>
+							<td class="r1">아이디 : </td>
+							<td colspan="3">[[${board.userid}]]</td>
+						</tr>
+						<tr>
+							<td class="r1">연락처 : </td>
+							<td colspan="3">[[${board.phonenum}]]</td>
+						</tr>
+						<tr>
+							<td colspan="4">[[${board.findcontents}]]</td>
+						</tr>
+					</table>
+				</div>
+				<div class="btncss" id="btncss1">
+					<div>
+						<th:block th:if="${page == null}">
+							<a th:with="link = ${board.category=='실종'} ? 'm' : 'r'"
+								th:href="${'/mboard/'+link+'list'+cri.listLink}"
+								th:text="목록"></a>
+						</th:block>
+						<th:block th:if="${page != null}">
+							<a th:href="${'/user/mycontents?&'+cri.listLink+'&boardnum='+board.boardnum+'&page='+page}">마이페이지</a>
+						</th:block>
+					</div>
+					<div>
+					<th:block th:if="${board.userid == session.loginUser}">
+						<form name="boardForm" method="post" th:action="@{/mboard/remove}">
+							<input name="boardnum" th:value="${board.boardnum}" type="hidden">
+							<input name="pagenum" th:value="${cri.pagenum}" type="hidden">
+							<input name="amount" th:value="${cri.amount}" type="hidden">
+							<input name="type" th:value="${cri.type}" type="hidden">
+							<input name="keyword" th:value="${cri.keyword}" type="hidden">
+							<a href="javascript:modify()">수정</a>
+							<a href="javascript:document.boardForm.submit()">삭제</a>
+						</form>
+					</th:block>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="g_reply">
+				<div class="reply_box ">
+					<th:block class="g_txt" th:if="${list != null and list.size()>0}" th:each="board : ${list}">
+						댓글 : [[${reply_cnt}]]개
+						<hr>
+					</th:block>
+				<div class="replyForm">	
+					</div>		
+					<table class="replycnt2">
+						<tr>
+							<ul class="replies"></ul>
+						</tr>
+					</table>
+					<div class="page"></div>
+					<hr>
+					<div class="wreply">
+						<p>[[${session.loginUser}]]</p>
+						<input type="text" name="replycontents">
+						<a id="ent" class="finish">입력</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script th:src="@{/board/js/reply.js}"></script>
+<script th:inline="javascript">
+	
+	const loginUser = /*[[${session.loginUser}]]*/'';
+	const boardnum = /*[[${board.boardnum}]]*/'';
+	const replies = $(".replies")
+	const page = $(".page")
+	let nowpage = 0;
+
+	$(document).ready(function () {
+		$(".replyForm").hide();
+		nowpage = 1;
+		showList(1);
+	})
+	$(".finish").on("click", function (e) {
+		e.preventDefault();
+		let replycontents = $("[name='replycontents']").val();
+
+		replyService.add(
+			{"boardnum": boardnum, "userid": loginUser, "replycontents": replycontents},
+			function (result) {
+				showList(nowpage);
+				location.reload(); // 페이지 새로 고침
+			}
+		)
+		$("[name='replycontents']").val("");
+
+	})
+
+	function showList(pagenum) {
+		replyService.getList(
+			{boardnum: boardnum, pagenum: pagenum || 1},
+			function (replyCnt, list) {
+				let str = "";
+				if (list == null || list.length == 0) {
+					str += '<li class="noreply" style="list-style: none;" style="clear:both;">등록된 댓글이 없습니다.</li>';
+					replies.html(str);
+					return;
+				}
+
+				for (let i = 0; i < list.length; i++) {
+					//<li style="clear:both;" class="li3">
+					str += '<li style="clear:both; list-style: none;" class="li' + list[i].replynum + '">';
+					str += '<div style="display:inline; float:left; width:60%;">';
+					//<strong class="userid3">apple</strong>
+					str += '<strong class="userid' + list[i].replynum + '">' + list[i].userid + '</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+					//<p class="reply3">댓글내용</p>
+					str += '<span class="uid2 reply' + list[i].replynum + '">' + list[i].replycontents + '</span>';
+					str += '</div><div style="text-align:right;">'
+					str += '<strong>' + replyService.displayTime(list[i]) + '</strong> &nbsp&nbsp'
+					if (list[i].userid == loginUser) {
+						//<a href="3" class="modify">수정</a>
+						str += '<span class="uid3">:</span>'
+						str += '<a style="display:none;" href="' + list[i].replynum + '" class="modify uid4">수정</a>';
+						str += '<a href="' + list[i].replynum + '" class="mfinish uid4" style="display:none;">수정 완료</a>';
+						str += '<a style="display:none;" href="' + list[i].replynum + '" class="remove uid4 uid5">삭제</a>';
+						//str += '<hr>'
+					}
+					str += '</div></li>';
+				}
+				replies.html(str);
+
+				$(".uid3").click(function () {
+					$(this).next().show();
+					$(this).hide();
+				})
+				$(".uid4").click(function () {
+					$(this).prev().show();
+					$(this).hide();
+				})
+				$(".uid3").click(function () {
+					$(this).next().next().next().show();
+					$(this).hide();
+				})
+				$(".uid5").click(function(){
+					$(this).prev().show();
+					$(this).hide();
+					location.reload(); // 페이지 새로 고침
+				})
+
+				$(".remove").on("click", deleteReply);
+				$(".modify").on("click", modifyReply);
+				$(".mfinish").on("click", modifyReplyOk);
+
+				showReplyPage(replyCnt, pagenum);
+			}
+		)
+	}
+
+	function showReplyPage(replyCnt, pagenum) {
+		let endPage = Math.ceil(pagenum / 5) * 5;
+		let startPage = endPage - 4;
+
+		let prev = startPage != 1;
+		endPage = (endPage - 1) * 5 >= replyCnt ? Math.ceil(replyCnt / 5) : endPage;
+		let next = endPage * 5 < replyCnt ? true : false;
+
+		let str = "";
+		if (prev) {
+			//<a class="changePage" href="5"><code>&lt;</code></a>
+			str += '<a class="changePage" href="' + (startPage - 1) + '"><code>&lt;</code></a>';
+		}
+		for (let i = startPage; i <= endPage; i++) {
+			if (i == pagenum) {
+				//<code class="nowPage">7</code>
+				str += '<code class="nowPage">' + i + '</code>';
+			}
+			else {
+				//<a class="changePage" href="9"><code>9</code></a>
+				str += '<a class="changePage" href="' + i + '"><code>' + i + '</code></a>';
+			}
+		}
+		if (next) {
+			str += '<a class="changePage" href="' + (endPage + 1) + '"><code>&gt;</code></a>';
+		}
+
+		page.html(str);
+
+		$(".changePage").on("click", function (e) {
+			e.preventDefault();
+			let target = $(this).attr("href");
+			nowpage = parseInt(target);
+			showList(nowpage);
+			window.setTimeout(function () {
+				window.scrollTo(0, document.body.scrollHeight)
+			}, 10)
+		})
+	}
+
+	function deleteReply(e) {
+		e.preventDefault();
+		let replynum = $(this).attr("href");
+		replyService.remove(
+			replynum,
+			function (result) {
+				if (result == "success") {
+					showList(nowpage);
+				}
+			}
+		)
+	}
+	let replyFlag = false;
+	function modifyReply(e) {
+		e.preventDefault();
+		if (!replyFlag) {
+			replyFlag = true;
+			let replynum = $(this).attr("href");
+			const replyTag = $(".reply" + replynum);
+			//<textarea class="3 mdf">댓글내용</textarea> 
+			replyTag.html('<textarea class="' + replynum + ' mdf">' + replyTag.text() + '</textarea>')
+			$(this).hide();
+			$(this).next().show();
+		}
+		else {
+			alert("수정중인 댓글이 있습니다!");
+		}
+	}
+	function modifyReplyOk(e) {
+		e.preventDefault();
+		replyFlag = false;
+
+		let replynum = $(this).attr("href");
+		let replycontents = $("." + replynum).val();
+
+		if (replycontents == "") {
+			alert("수정할 댓글 내용을 입력하세요!");
+			return;
+		}
+		replyService.modify(
+			{replynum: replynum, replycontents: replycontents, boardnum: boardnum, userid: loginUser},
+			function (result) {
+				if (result == "success") {
+					showList(nowpage);
+				}
+			}
+		)
+	}
+
+
+	function modify() {
+		const boardForm = document.boardForm;
+		boardForm.setAttribute("action",/*[[@{/mboard/mmodify}]]*/'');
+		boardForm.setAttribute("method", "get");
+		boardForm.submit();
+	}
+
+	$(".cancel").on("click", function (e) {
+		e.preventDefault();
+		$(".replyForm").hide();
+		$(".regist").show();
+		$("[name='replycontents']").val("");
+	})
+
+	var slideIndex = 1;
+	showDivs(slideIndex);
+
+	function plusDivs(n) {
+		showDivs(slideIndex += n);
+	}
+
+	function showDivs(n) {
+		var i;
+		var x = document.getElementsByClassName("myslides");
+		if (n > x.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = x.length};
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		x[slideIndex - 1].style.display = "block";
+	}
+</script>
+
+</html>

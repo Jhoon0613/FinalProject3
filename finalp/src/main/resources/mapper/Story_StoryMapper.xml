@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.demo.mapper.Story_StoryMapper">
+	<select id="story_getStories">
+		<![CDATA[
+		select * from story_story
+		where storycontents like concat('%', #{keyword}, '%')
+		and storycategory = #{category}
+		order by storydate desc limit #{startNum}, #{endNum}
+		]]>
+	</select>
+	<select id="story_getStory">
+		select * from story_story where storynum=#{storynum}
+	</select>
+	
+	<insert id="story_insertStory">
+		insert into story_story(storycategory, storycontents, storywriter)
+		values(#{storyCategory}, #{storyContents}, #{storyWriter})
+	</insert>
+	
+	<select id="story_getLastnum">
+		select * from story_story order by storynum desc limit 1;
+	</select>
+	
+	<delete id="story_remomveStory">
+		delete from story_story where storynum=#{storyNum}
+	</delete>
+	
+	<update id="story_updateStory">
+		update story_story set storycategory=#{swDTO.storyCategory},
+		storycontents=#{swDTO.storyContents},
+		storywriter=#{swDTO.storyWriter},
+		storymodifycheck='o'
+		where storynum=#{storynum}
+	</update>
+	
+	<update id="likeUp">
+		update story_story set storylikes=storylikes+1 where storynum=#{storyNum}
+	</update>
+	<update id="likeDown">
+		update story_story set storylikes=storylikes-1 where storynum=#{storyNum}
+	</update>
+</mapper>
+
+
+

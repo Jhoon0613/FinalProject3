@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.kh.demo.mapper.StoryLikeMapper">
+	 
+	<insert id="insert">
+		insert into storyLike (userid,storyNum) values(#{userid},#{storyNum})
+	</insert>
+	
+	<delete id="remove">
+		delete from storyLike where userid=#{userid} and storyNum=#{storyNum}
+	</delete>
+	
+	<select id="likeList">
+		select * from storyLike where storyNum=#{storyNum}
+	</select>
+	<select id="likeFind">
+		select * from storyLike where userid=#{userid} and storyNum=#{storyNum}
+	</select>
+	
+ </mapper>

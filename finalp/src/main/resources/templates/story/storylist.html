@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 	<meta charset="UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<title>스토리</title>
+ 	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+ 	<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+ 	<style>
+		#storyform{
+			display: none;
+		}
+		
+		.nextBtn, .prevBtn {
+			position: absolute;
+			top: 50%;
+			z-index: 10;
+		}
+		.nextBtn img, .prevBtn img {
+         width: 100px;
+         height: 100px;
+      }
+		.nextBtn {
+			right: -10px;
+		}
+		.prevBtn {
+			left: -10px;
+		}
+		.pic{
+			margin: 0 auto;
+			width: 600px;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+ 		<th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+ 		<section>
+			 <div class="p_title4">
+                <div class="p_text">
+                    <h2>스토리</h2><br>
+                    <p>입양후기를 만나보세요</p>
+                </div>
+                <div class="p_images">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="p_txt">
+                <a class="current" href="#">입양후기</a>
+            </div>
+        </section>
+       
+        <section>
+			<table style="display: none;">
+				<tr id="forReplyAndCopy">
+		            <td class="uid1"></td>
+					<td class="uid2"></td>
+		            <td class="uid3">:</td>
+		            <td class="uid4">
+		                <a href="#" class="replymodify">수정</a>
+		                <a href="#" class="replyremove">삭제</a>
+		            </td>
+		        </tr>
+			</table>
+            <div class="s_title">
+				
+				
+                
+            </div>
+		<section  style="display: none;">
+			<div class="sub_likebox" id="box22" >
+				<div class="like_pf">
+					<img src="" alt="">
+				</div>
+				<div class="likeid"></div>
+				<div class="f">
+					<div class="follow">팔로우</div>
+					<div class="follow1">팔로잉</div>
+				</div>
+			</div>
+		</section>
+            <div class="m_write">
+				<!--<th:block th:if="${session.loginUser != null}">-->
+					<a id="writeBtn" th:href="${'/story/swrite'}"
+					th:data-hidden-value="${session.loginUser}">
+						<img th:src="@{/board/images/write.png}" alt="">
+					</a>
+				<!--</th:block>-->
+				<!--<th:block th:if="${session.loginUser == null}">
+					<script>
+						alert("로그인 후 작성할 수 있습니다.");
+					</script>
+				</th:block>-->
+            </div>
+        </section>
+    </div>
+    
+    <!-- 복사할 태그 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+				<div id="storyform" class="s_container" style="display: none;">
+                    <div class="profil">
+                        <div class="top">
+				          <img th:src="@{/user/thum (useridx=${proimage.useridx})}" class="mp_pro">
+							<!--<img th:src="@{/board/images/p1.png}" alt="">-->
+							<a class="userid" href="#"></a> <!--여기-->
+                            <h4 class="storydate">22시간전(현재 시간 - 등록한 시간/일,월,년 구별)</h4>
+                        </div>
+                        <div class="top2">
+							<div class="follow">팔로우</div>
+							<div class="follow1">팔로잉</div>
+							<div class="dot">
+                            <span>. . .</span>
+                        </div>
+                        <div class="dot_sub">
+                               <a href="#">수정</a>
+                               <a href="#">삭제</a>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="pic" style="overflow: hidden;"></div>
+                    <div class="mid">
+                        <div class="logo_img">
+                            <form>
+                                <div class="like">
+                                    <img th:src="@{/board/images/emptyhrt.png}" alt="">
+                                </div>
+                                <div class="like1">
+                                    <img th:src="@{/board/images/fullhrt.png}" alt="">
+                                </div>
+                            </form>
+                            <div >
+                                 <img class="msg" th:src="@{/board/images/msg.png}" alt="">
+                            </div>
+                        </div>
+                        <div class="category">
+                            <p class="storycategory"></p>
+                        </div>
+                    </div>
+					<div class="likebox">
+						<div class="sub_likebox">
+							<div class="likee">좋아요</div>
+							<div class="deleteimg">
+								<img th:src="@{/board/images/delete.png}" alt="">
+							</div>
+						</div>
+						<hr class="b" style="border-bottom: 1px solid white; border-left: 1px solid white;">
+						</div>
+					<div class="bottom">
+                        <div class="likecnt">
+                            <p class="storylike"></p>
+                        </div>
+                        <div class="uid">
+                            <p class="userid"></p>
+                        </div>
+                        <div class="scontents">
+                            <p class="scontents1" style="overflow: hidden;"></p>
+                            <p class="modify"></p>
+                            <p class="less">간략히</p>
+                            <p class="more">더 보기</p>
+                        </div>
+                        <div class="replycnt">
+                            <table class="replycnt1"></table>
+                            <p class="less1">댓글 간략히</p>
+                            <p class="seeAll"></p>
+                        </div>
+                        <div class="rcontents">
+                            <form>
+                                <input type="hidden" name="" value="userid">
+                                <input type="text" class="regist" name="" id="comment" placeholder="댓글 달기...">
+                            </form>
+                        </div>
+                        <div class="line">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+                
+                <!-- @@원본(나중에 혹시나 할 때 참고)@@
+                <div class="s_container">
+                    <div class="profil">
+                        <div class="top">
+                            <img th:src="@{/board/images/p1.png}" alt="">
+                            <a href="#">userid</a>
+                            <h4>22시간전</h4>
+                        </div>
+                        <div class="dot">
+                            <span>. . .</span>
+                        </div>
+                        <div class="dot_sub">
+                               <a href="javascript:;">수정</a>
+                               <a href="javascript:;">삭제</a>
+                        </div>
+                    </div>
+                    <div class="pic">
+                        <img th:src="@{/board/images/p1.png}" alt="">
+                    </div>
+                    <div class="mid">
+                        <div class="logo_img">
+                            <form>
+                                <div class="like1">
+                                    <img th:src="@{/board/images/fullhrt.png}" alt="">
+                                </div>
+                                <div class="like2">
+                                    <img th:src="@{/board/images/emptyhrt.png}" alt="">
+                                </div>
+                            </form>
+                            <div >
+                                 <img class="msg" th:src="@{/board/images/msg.png}" alt="">
+                            </div>
+                        </div>
+                        <div class="category">
+                            <p>스토리 > 입양후기</p>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="likecnt">
+                            <p>좋아요 40개</p>
+                        </div>
+                        <div class="uid">
+                            <p>userid</p>
+                        </div>
+                        <div class="scontents">
+                            <p class="scontents1" style="overflow: hidden;">이번주 첫번째 입양후기의 주인공은
+                                이세상의 단하나, only one 💕
+                                바로! 작고 소중한 ‘온리’ 입니다.
+                                지알디아 치료를 마치고 925g으로 퇴원한 온리는
+                                임보처에서 잠재되어있던 미치광이 말티즈의 본능을 점점 깨워가며,
+                                임보집 오빠 엉덩이 공격으로 실전을 쌓아가며 입양캠페인에 출석할 날만을 기다렸어요.
+                            </p>
+                            <p class="modify">(수정됨)</p>
+                            <p class="less">간략히</p>
+                            <p class="more">더 보기</p>
+                        </div>
+                        <div class="replycnt">
+                            <table class="replycnt1">
+                                <tr>
+                                    <td class="uid1">userid</td>
+                                    <td class="uid2">dajlnvankdnk;vakdva</td>
+                                    <td class="uid3">:</td>
+                                    <td class="uid4">
+                                        <a href="javascript:;">수정</a>
+                                        <a href="javascript:;">삭제</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="uid1">useriddavfbaㅁㅎㅁㅇㅎㅁㅎㅁ</td>
+                                    <td class="uid2">
+                                        dajlnvankdnk;vakdvaank;nbanakbanfkdajlnvankdnk;vakdvaank;nbanakbanfkdajlnvankdnk;vakdvaank;nbanakbanfk
+                                    </td>
+                                    <td class="uid3">:</td>
+                                    <td class="uid4">
+                                        <a href="javascript:;">수정</a>
+                                        <a href="javascript:;">삭제</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p class="less1">댓글 간략히</p>
+                            <p class="seeAll">댓글 3개 모두보기</p>                            
+                        </div>
+                        <div class="rcontents">
+                            <form>
+                                <input type="hidden" name="" value="userid">
+                                <input type="text" name="" id="comment" placeholder="댓글 달기...">
+                            </form>
+                        </div>
+                        <div class="line">
+                            <hr>
+                        </div>
+                    </div>
+                </div>-->
+                
+                <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/board/js/story.js}"></script>
+	<!--<script th:src="@{/board/js/storyAjax.js}"></script>-->
+  </body>
+  </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

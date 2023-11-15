@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+<style>
+	
+</style>
+	<link rel="stylesheet" th:href="@{/board/css/main.css}">
+	<link rel="stylesheet" th:href="@{/board/css/mypage.css}">
+</head>
+<body>
+	<div id="wrap">
+		 <th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+            <div class="title_">
+                <div class="text_">
+		 <th:block th:replace="~{layout/mpheader::mpheader}"></th:block>
+                	
+                <div class="menu_all">
+                    <div class="header_text"><span>기본정보 수정</span></div>
+                <article>
+            <div class="side_menu">
+                <div class="mypage_menu">
+                    <strong>회원정보</strong>
+                    <ul>
+                        <li class="menu_info"><a href="/user/mypage" style="border-bottom: 3px solid #fff; font-weight: bold; color: #fff;">기본정보</a></li>
+                        <li class="menu_info"><a href="/user/pwck">비밀번호 변경</a></li>
+                        <li class="menu_info"><a href="/user/rmpwck">회원탈퇴</a></li>
+                    </ul>
+                </div>
+                <div class="mypage_menu">
+                    <strong>마이메뉴</strong>
+                    <ul>
+                        <li class="menu_my"><a href="/user/favoritepet">관심 동물</a></li>
+                        <li class="menu_my"><a href="/user/myInterestStory">관심 스토리</a></li>
+                        <li class="menu_my"><a href="/user/mycontents">내가 쓴 게시글</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        <div class="main_menu">
+            <div class="mypage_info_contents">
+                <h2 class="myinfo">기본정보 관리</h2>
+                <table class="info_table">
+                    <tr>
+                        <th><label for="userid">아이디</label></th>
+                        <td><input type="text" name="userid" id="userid" th:value="${loginUser}" readonly></td>
+                    </tr>
+                    <tr>
+                        <th><label for="username">이름</label></th>
+                        <td><input type="text" name="username" id="username" th:value="${username}" readonly></td>
+                    </tr>
+                    <tr>
+                        <th><label for="userid">닉네임</label></th>
+                        <td><input type="text" name="usernickname" id="usernickname" th:value="${usernickname}" readonly></td>
+                    </tr>
+                    <tr>
+                        <th class="th"><label for="phonenum">연락처</label></th>
+                        <td class="td"><input type="text" name="phonenum" id="phonenum" th:value="${phonenum}" maxlength="13" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" readonly></td>
+                    </tr>
+                     <tr class="addr_area">
+                        <th class="ad_detail">주소</th>
+                        <td><input readonly name="addr" type="text"
+                            id="sample6_address" th:value="${addr}"></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><input name="addrdetail" type="text"
+                            id="sample6_detailAddress" th:value="${addrdetail}" readonly></td>
+                    </tr>
+                    <tr id="btn_tr">
+                        <td colspan="2">
+                            <div class="btn_subarea">
+                                <a href="/user/modify">내 정보 수정</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+        </div>
+            </article>
+            <section>
+			<th:block th:replace="~{layout/footer::footer}"></th:block>
+		</section>
+    </div>
+</body>
+<script>
+	
+</script>
+</html>

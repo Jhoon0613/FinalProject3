@@ -1,0 +1,53 @@
+<link>
+<th:block th:fragment="header(loginUser)">
+	<th:block th:if="${loginUser == null}">
+
+	</th:block>
+	<header>
+		<div class="header_box">
+			<div class="logo">
+				<a th:href="@{/}"><img th:src="@{/board/images/logo.jpg}"></a>
+			</div>
+			<div class="headerM">
+
+				<div class="menu">
+					<a th:href="${'/board/protect'}">보호소</a>
+					<a th:href="${'/mboard/mlist'}">실종/제보</a>
+					<a th:href="${'/story/storylist'}">스토리</a>
+				</div>
+				<div class="mypage">
+					<th:block th:if="${loginUser == null}">
+						<a th:href="${'/user/loginview'}"><img th:src="@{/board/images/my2.png}"></a>
+					</th:block>
+					<th:block th:if="${loginUser != null}">
+						<a id="toMyPage" th:href="${'/user/mypage'}"><img th:src="@{/board/images/my2.png}"></a>
+					</th:block>
+					<th:block th:if="${loginUser != null}">
+					<div class="p_box">
+						<div class="my_img">
+						<th:block th:if="${loginUser != null or proimage != null}">
+							<img th:src="@{/user/thum (useridx=${proimage?.useridx})}" class="mp_pro">
+						</th:block>
+						</div>
+						<div class="hello">
+							<h2>안녕하세요! [[${loginUser}]]님</h2>
+						</div>
+						<div class="my_btn">
+							<a th:href="@{/user/mypage}">
+								<div class="move">마이페이지</div>
+							</a>
+							<a th:href="@{/user/mystory}">
+								<div class="mystory">내 스토리</div>
+							</a>
+							<a th:href="@{/user/logout}">
+								<div class="m_logout">로그아웃</div>
+							</a>
+						</div>
+					</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</header>
+</th:block>
+

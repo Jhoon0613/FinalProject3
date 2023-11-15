@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Join</title>
+    <link rel="stylesheet" th:href="@{/board/css/join.css}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div id="wrap">
+        <div class="join_box">
+		<form id="joinForm" name="joinForm" method="post" action="/user/join"
+			onsubmit="return sendit()" enctype="multipart/form-data">
+            <header>
+                <div class="header">
+                    <a th:href="@{/}"><img th:src="@{/board/images/logo.jpg}"></a>
+                </div>
+            </header>
+			<table>
+			<div id="up_table">
+				<input type="hidden" name="useridx" id="useridx" th:value="${useridx}">
+				<tr class="up_table">
+					<td id="result" colspan="2">&nbsp;</td>
+				<!-- </tr> -->
+				<!-- <tr> -->
+					<td>
+					<label for="userid"><img src="/user/images/필수입력.png"><img src="/user/images/id.png" class="img_id"></label>
+					<input type="text" name="userid" id="userid" placeholder="아이디"><input type="button" value="중복검사" onclick="checkId()"></td>
+				<!-- </tr> -->
+				<!-- <tr> -->
+					<td>
+					<label for="userpw"><img src="/user/images/필수입력.png"><img src="/user/images/password.png" class="img_pw"></label>
+					<input type="password" name="userpw" id="userpw" onkeyup="pwcheck()" placeholder="비밀번호"></td>
+				<!-- </tr> -->
+				<!-- <tr> -->
+					<td><label for="userpw_re"><img src="/user/images/필수입력.png"></label>
+					<input type="password" name="userpw_re" id="userpw_re" onkeyup="pwcheck()" placeholder="비밀번호 확인"></td>
+				<!-- </tr> -->
+				<!-- <tr> -->
+					<td><label for="usernickname"><img src="/user/images/nickname.png" class="img_id img_nic" id="img_nic"></label>
+					<input type="text" name="usernickname" id="usernickname" placeholder="사용할 닉네임(별명)"><input type="button" value="중복검사" onclick="ncheckId()"></td>
+					<td id="nresult" colspan="2">&nbsp;</td>
+				</tr>
+			</div>
+			<div id="down_table">
+				<tr class="down_table">
+					<td><label for="username"><img src="/user/images/필수입력.png"><img src="/user/images/name.png" class="img_id"></label>
+					<input type="text" name="username" id="username" placeholder="이름"></td>
+				<!-- </tr> -->
+				<tr class="gender_area">
+					<td>
+						<div>
+							<ul>
+								<li class="radio_item">
+									<input type="radio" id="usergender1" name="usergender" value="M"><label for="usergender1">남자</label>
+								</li>
+								<li class="radio_item">
+									<input type="radio" id="usergender2" name="usergender" value="W"><label for="usergender2">여자</label>
+								</li>
+							</ul>
+							<ul>
+								<li class="radio_item">
+									<input type="radio" id="foreigner1" name="foreigner" value="K"><label for="foreigner1">내국인</label>
+								</li>
+								<li class="radio_item">
+									<input type="radio" id="foreigner2" name="foreigner" value="F"><label for="foreigner2">외국인</label>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<!-- <tr> -->
+					<td class="th"><label for="phonenum"><img src="/user/images/phone.png" class="img_id img_phone"></label>
+                    <input type="text" name="phonenum" id="phonenum" value="" maxlength="13" placeholder="(휴대폰 번호) 000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" required/></td>
+                <!-- </tr> -->
+				<tr class="zipcode_area">
+					<td><img src="/user/images/필수입력.png"><img src="/user/images/location.png" class="img_id">
+					<input readonly name="zipcode" type="text"
+						id="sample6_postcode" placeholder="우편번호" onclick="sample6_execDaumPostcode()"><input
+						type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+					</td>
+				</tr>
+				<tr class="addr_area">
+					<td class="addr_text">
+					<input readonly name="addr" type="text"
+						id="sample6_address" placeholder="주소"></td>
+				</tr>
+				<tr class="addr_detail">
+					<td><img src="/user/images/필수입력.png" class="img_addetail"><img src="/user/images/home.png" class="img_id img_home">
+					<input name="addrdetail" type="text"
+						id="sample6_detailAddress" placeholder="상세주소"></td>
+				</tr>
+				<tr>
+					<td><input readonly name="addretc" type="hidden"
+						id="sample6_extraAddress" placeholder="참고항목"></td>
+				</tr>
+			</div>
+			<div class="pro_file">			
+					<tr class="r0 at">
+							<th>프로필 사진</th>
+							<td class="file0_cont" colspan="3">
+								<div>
+									<input type="file" name="files" id="file0" style="display:none">
+									<span id="file0name">선택된 사진 없음</span>
+								</div>
+								<div>
+									<a href="javascript:upload('file0')" class="btn_proimg">사진 선택</a>
+									<!--<a href="javascript:cancelFile('file0')">기본 사진</a>-->
+								</div>
+							</td>
+						</tr>	
+			</div>
+				
+					<tr id="check_join">
+						<th class="check_all">
+							<div class="terms__check__all">
+								<input type="checkbox" name="checkAll" id="checkAll" /><label for="checkAll" class="c1">약관 동의 (전체 동의)</label>
+							</div>
+						</th>
+					</tr>
+						<tr>
+							<td class="panel">
+								<div class="contents">
+									<ul class="terms__list">
+										<li class="terms__box">
+											<div class="input__check">
+												<input type="checkbox" name="agreement" id="termsOfService"
+													value="termsOfService" required  />
+												<label for="termsOfService" class="required"><span>[필수]</span> Adoptme
+													이용약관 동의<img src="/user/images/필수입력.png"></label>
+											</div>
+											<details>
+												<summary>자세히 보기</summary>
+
+												<div class="terms__content">
+													Adoptme 를 이용해 주셔서 감사합니다. 본 약관은 다양한 Adoptme
+													서비스의 이용과 관련하여 Adoptme 서비스를 제공하는 Adoptme 홈페이지(이하 ‘Adoptme’)와 이를 이용하는
+													Adoptme 서비스
+													회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 Adoptme 서비스 이용에 도움이 될 수 있는
+													유익한 정보를 포함하고 있습니다. Adoptme 서비스를 이용하시거나 Adoptme 서비스 회원으로 예약하실 경우 여러분은
+													본
+													약관 및 관련 운영 정책을 확인하거나 동의하게 되므로, 잠시 시간을 내시어 주의 깊게 살펴봐 주시기
+													바랍니다.
+												</div>
+											</details>
+										</li>
+										<li class="terms__box">
+											<div class="input__check">
+												<input type="checkbox" name="agreement" id="privacyPolicy"
+													value="privacyPolicy" required />
+
+												<label for="privacyPolicy" class="required"><span>[필수]</span> 개인정보 수집 및
+													이용 동의<img src="/user/images/필수입력.png"></label>
+											</div>
+											<details>
+												<summary>자세히 보기</summary>
+												<div class="terms__content">
+													개인정보보호법에 따라 Adoptme를 이용하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및
+													이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니
+													자세히 읽은 후 동의하여 주시기 바랍니다.<br><br><b>1.</b> 수집하는 개인정보 이용자는 회원가입을 하지 않아도
+													정보 검색,
+													소식 보기 등 대부분의 네이버 서비스를 회원과 동일하게 이용할 수 있습니다. 이용자가 서비스 이용 등
+													과 같이 개인화 혹은 회원제 서비스를 이용하기 위해 회원가입을 할 경우, Adoptme는 서비스 이용을
+													위해 필요한 최소한의 개인정보를 수집합니다.
+												</div>
+											</details>
+										</li>
+										<li class="terms__box">
+											<div class="input__check">
+												<input type="checkbox" name="agreement" id="allowPromotions"
+													value="allowPromotions" />
+
+												<label for="allowPromotions" class="required">[선택] 프로모션 정보 수신 동의</label>
+
+											</div>
+											<details>
+												<summary>자세히 보기</summary>
+												<div class="terms__content">
+													Adoptme에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(Adoptme앱(준비 중) 알림 또는 문자), 이메일로
+													받아보실 수
+													있습니다. 일부 서비스(별도 회원 체계로 운영하거나 Adoptme 가입 이후 추가 가입하여 이용하는 서비스 등)의
+													경우, 개별 서비스에 대해 별도 수신 동의를 받을 수 있으며, 이때에도 수신 동의에 대해 별도로 안내하고
+													동의를 받습니다.
+												</div>
+											</details>
+										</li>
+									</ul>
+								</div>
+							</td>
+							</tr>
+				<tr class="agree_check">
+					<!--<th colspan="2"><input class="submit" type="button" value="동의하고 가입하기" onclick="sendit();"></th>-->
+					<th colspan="2"><button type="button" class="submit" value="동의하고 가입하기" onclick="sendit();" disabled>동의하고 가입하기</button></th>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/user/js/user.js}"></script>
+
+</html>

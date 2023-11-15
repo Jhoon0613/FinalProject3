@@ -1,0 +1,265 @@
+/* 로그인 화면 시작 */
+body{
+    background-color: #A3BBDC;
+}
+#wrap{
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+form{
+    width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+}
+input{
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+table{
+    border-collapse: collapse; 
+    margin:0 auto;
+}
+tr{
+	text-align: center;
+}
+
+td,th{
+    padding: 5px;
+    text-align: left;
+    display: inline-block;
+}
+
+.img_id,.img_pw{
+    width: 30px;
+    vertical-align: bottom;
+}
+
+input[type=text], input[type=password]{
+    /* padding:20px; */
+    width:250px;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 5px;
+    font-size: 15px;
+    border: none;
+    border-bottom:1px solid darkgray;
+    border-radius: 2px;
+    outline: none;
+    /* box-shadow: 1px 2px 5px 1px gray inset; */
+}
+
+input[type=text]:focus, input[type=password]:focus{
+    border-bottom:2px solid #6F8FB8;
+}
+input::placeholder{
+    color: darkgray;
+}
+
+input[type=submit]{
+    margin-top:20px;
+    padding:10px 20px;
+    width:300px;
+    height: 50px;
+    border:none;
+    background-color:#6F8FB8;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn_subarea{
+    margin-top:10px;
+    /* padding:10px 20px; */
+    /* height: 50px; */
+    /* margin: 0 auto; */
+    display: inline-block;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+.btn_subarea > a{
+    color:darkgray;
+}
+.bs1{
+    margin-right: 10px;
+}
+.bs2 > a::after{
+    content: " ㅣ";
+}
+.sub_or{
+    display: inline;
+}
+
+.sub_join {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    /* color: rgba(0, 0, 0, 0.35); */
+    color: #7c9fcd;;
+    font-size: 15px;
+  }
+  .sub_join::before,
+  .sub_join::after {
+    content: "";
+    flex-grow: 1;
+    /* background: rgba(0, 0, 0, 0.35); */
+    background: #7c9fcd;;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 10px;
+  }
+  .sub_join > h4 {
+    color: #7c9fcd;
+  }
+
+a{
+    text-decoration: none;
+}
+
+#sns_login  tr{
+    width: 20px;
+    display: inline;
+}
+
+.logo_img{
+    width: 50px;
+    height: 50px;
+    padding-left: 5px;
+    margin-bottom: 30px;
+}
+.img_kakao{
+	border-radius: 50%;
+}
+.img_google{
+	width: 45px;
+	height: 45px;
+}
+b{
+    font-size: 20px;
+    color: #fff;
+    vertical-align: top;
+    padding-left: 30px;
+    line-height: 50px;
+}
+/* 로그인 화면 끝 */
+
+/* 회원가입 화면 시작 */
+#result {
+		color: #e91e63;
+    	font-weight: bold;
+    	text-align: center;
+	}
+
+.header{
+	text-align: center;
+}
+.header > a > img{
+	width: 300px;
+	height: 120px;
+	margin-top: 50px;
+}
+
+.join_box input[type=text],.join_box input[type=password],.join_box th{
+    margin-left: 130px;
+}
+.join_box .gender_area div{
+    margin-left: 85px;
+}
+
+
+input[type=button]{
+    margin-left:10px;
+    padding:0px 10px;
+    background-color: #6F8FB8;
+    color:#fff;
+    font-size: 14px;
+    font-weight: bold;
+    border:none;
+    border-radius: 5px;
+    width:80px;
+    height:40px;
+    line-height:40px;
+}
+
+.gender_area > td{
+    font-size:16px;
+    padding:5px 40px 5px 20px;	
+}
+.gender_area > td > div{
+    display:flex;
+    align-items: center;
+    position: relative;
+    width:340px;
+}
+.gender_area ul{
+    list-style: none;
+    width:50%;
+    font-size:0;
+    margin: 0;
+    padding: 0;
+}
+.gender_area ul:last-of-type{
+    margin-left: 10px;
+}
+.gender_area li{
+    display: inline-block;
+    width:50%;
+    margin:0;
+    padding:0;
+    border-radius: 5px 0 0 5px;
+}
+.gender_area ul li:last-of-type{
+    border-radius: 0 5px 5px 0;
+}
+.gender_area li > input[type=radio]{
+    width:1px;
+    height:1px;
+    margin:-1px;
+    overflow:hidden;
+    position:absolute;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border: none;
+}
+.gender_area li > label{
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 6px 0;
+    border-radius: inherit;
+    border: 1px solid darkgray;
+    font-size: 13px;
+    line-height: 18px;
+    /* color: #757575; */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+.gender_area li > input[type=radio]:checked+label{
+    border: 1px solid #7c9fcd;
+    color:#7c9fcd;
+    font-weight: bold;
+}
+.zipcode_area > td > input[type=text]{ width:200px; }
+.zipcode_area > td > input[type=button]{ width:130px !important; }
+.addr_area > td > input[type=text],
+.addr_area + tr > td > input[type=text],
+.addr_area + tr + tr > td > input[type=text]{
+    width:340px;
+}
+input.submit{
+    width: 310px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0px 10px 0;
+}
+

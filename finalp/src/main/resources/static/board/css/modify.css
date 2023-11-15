@@ -1,0 +1,444 @@
+*{
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+}
+a{
+    text-decoration: none;
+}
+#wrap{
+    margin: 0 auto ;
+    padding: 0;
+}
+/* hearder 시작 */
+
+.header_box{
+    width: 100%;
+    background-color: white;
+    opacity: 0.85;
+    margin: 0px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between; 
+    position: fixed;
+    z-index:100;
+}
+.header_area{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    align-items: center;
+}
+.userimg{
+    width: 900px;
+    height: 150px;
+}
+.header_area p {
+	margin-top: 45px;
+}
+.header_text{
+    width: 900px;
+    margin: 0 auto;
+    padding: 20px 0 20px 0;
+    /* padding: 20px; */
+    font-size: 40px;
+    font-weight: bold;
+}
+
+/* header 끝 */
+
+/* mypage 시작 */
+.mp_pro{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.header_area{
+    display: flex;
+}
+
+.title{
+    width: 100%;
+    box-sizing:border-box ;
+    background-color: #7C9FCD;
+    margin: auto;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid  black;
+    /* padding-top: 100px; */
+}
+.large{
+    font-size: 40px;
+}
+.text{
+    padding-left: 200px;
+    padding-top: 400px;
+    border: 1px solid  black;
+    color: white;
+    letter-spacing: 1px;
+    width: 700px;
+}
+.text h2{
+    font-size: 50px;
+}
+.text p{
+    font-size: 30px;
+    padding-bottom: 30px;
+}
+.images img{
+    margin-top: 200px;
+    border: 1px solid  black;
+    width: 700px;
+    height: 500px;
+}
+.title_{
+    width: 100%;
+    box-sizing:border-box ;
+    background-color:#fff;
+    margin: auto;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 100px; */
+}
+
+.text_{
+    height: 450px;
+    padding-top: 170px; 
+    text-align: center;
+    border: 1px solid  black;
+    color: white;
+    letter-spacing: 1px;
+    width: 100%;
+    background-color:#A3BBDC;
+}
+.text_ h2{
+    font-size: 50px;
+}
+.text_ p{
+    font-size: 30px;
+    padding-bottom: 30px;
+}
+.btn{
+    font-size: 25px;
+    color: white;
+    padding: 15px 45px;
+    border-radius: 15px;
+    background-color: #668cbd;
+}
+.images2{
+    /* padding-left: 100px;*/
+    margin-top: 80px; 
+    width: 100%;
+    border: 1px solid  black;
+    text-align: center;
+}
+.images2 img{
+    margin: 10px;
+    width: 280px;
+    height: 350px;
+    border-radius: 30px;
+    border: 3px solid #4A5F7B;
+}
+.title3{
+    width: 100%;
+    box-sizing:border-box ;
+    background-color:#BDCEE6;
+    margin: auto;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid  black;
+    /* padding-top: 100px; */
+}
+.title4{
+    width: 100%;
+    box-sizing:border-box ;
+    background-color:#D7E2F0;
+    margin: auto;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid  black;
+    /* padding-top: 100px; */
+}
+/* index 끝 */
+
+
+
+.title_{
+    height: auto;
+}
+.text_{
+    border: none;
+    border-bottom: 2px solid #fff;
+}
+.btn{
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.mypage_img{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top:15px;
+    right: 20px;
+}
+article{
+    width: 900px;
+    height: 757px;
+    margin: 0 auto;
+    border-top: 3px solid black;
+    border-bottom: 1px solid darkgray;
+    border-right: 1px solid darkgray;
+    /* background-color: #96B2D7; */
+}
+.mypage_header h2{
+    border-bottom: 3px solid #000;
+}
+.side_menu{
+    width: 200px;
+    height: 754px;
+    float: left;
+    background-color: #96B2D7;
+}
+strong{
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    color: #4A5F7B;
+    margin-left: 25px;
+    display: inline-block;
+    border-bottom: 3px solid #4A5F7B;
+}
+.mypage_menu{
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    /* background-color: #A3BBDC; */
+    background-color: #96B2D7;
+}
+.mypage_menu ul{
+    margin-top: 15px;
+}
+.mypage_menu li{
+    width: 150px;
+    height: 30px;
+    text-align: left;
+    font-size: 18px;
+    list-style: none;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.mypage_menu li a{
+    margin-left: 25px;
+    font-size: 16px;
+    font-weight: 540;
+    color: #F1F5FA;
+}
+.mypage_menu li a:hover{
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+}
+.main_menu{
+    width: 400px;
+    height: 700px;
+    /* background-color: #fff; */
+    background-color: F1F5FA;
+    margin: 0 auto;
+    float: left;
+}
+.mypage_info_contents{
+    width: 600px;
+    height: 700px;
+    margin: 40px auto;
+    margin-left: 50px;
+    /* margin-top: 50px; */
+    margin-bottom: 50px;
+    background-color: #fff;
+    /* border: 1px solid gray; */
+}
+
+.myinfo{
+    width: 550px;
+    height: 58px;
+    margin: 0 auto;
+    font-size: 25px;
+    line-height: 2;
+    border-bottom: 3px solid #4A5F7B;
+    color: #4A5F7B;
+    /* padding: 0 0 0 20px; */
+}
+#td_user{
+	height: 75px;
+}
+.info_table{
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    text-align: center;
+    border-collapse: collapse;
+}
+.info_table tr{
+    border-top: 1px solid gray;
+}
+.info_table th{
+    width: 150px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #96B2D7;
+	
+}
+.info_table td{
+    width: 300px;
+    font-size: 20px;
+    height: 100px;
+    text-align: center;
+}
+
+input[type=text]{
+    padding:10px;
+    width:250px;
+    height: 45px;
+    font-size: 20px;
+    border:none;
+    border-radius: 2px;
+    outline: none;
+}
+input[type=password]{
+    padding:10px;
+    width:250px;
+    height: 45px;
+    border:1px solid #ccc;
+    border-radius: 2px;
+    outline: none;
+}
+
+input[type=password]:focus{
+    border:2px solid #6F8FB8;
+}
+/* input[type=text]:focus, input[type=password]:focus{
+    border-bottom:2px solid #6F8FB8;
+} */
+.btn_subarea{
+    padding-top: 180px;
+}
+.btn_subarea a{
+    margin-top:20px;
+    padding:15px 20px;
+    width:300px;
+    height: 50px;
+    border:none;
+    background-color:#6F8FB8;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+#checkPwd{
+	margin-top:200px;
+    padding:10px 20px;
+    width:100px;
+    height: 50px;
+    border:none;
+    background-color:#6F8FB8;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+#checkrmPwd{
+	margin-top:240px;
+    padding:10px 20px;
+    width:100px;
+    height: 50px;
+    border:none;
+    background-color:#6F8FB8;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+.btn_subarea input[type=submit]{
+    margin-top:20px;
+    padding:10px 20px;
+    width:120px;
+    height: 45px;
+    border:none;
+    background-color:#6F8FB8;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+#btn_tr{
+    border: none;
+    padding-top: 45px;
+}
+
+#reason{
+	padding:10px;
+    width:250px;
+    height: 45px;
+    border:1px solid #ccc;
+    border-radius: 2px;
+    outline: none;
+}
+/*회원 탈퇴 버튼*/
+.btn_pwck input[type=submit]{
+    margin-top:250px;
+    padding:10px 20px;
+    width:120px;
+    height: 55px;
+    border:none;
+    background-color:#96B2D7;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn_pwck a{
+    margin-top:250px;
+    padding:15px 20px;
+    width:300px;
+    height: 50px;
+    border:none;
+    background-color:#96B2D7;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn_pwmoarea input[type=submit]{
+    margin-top:230px;
+    padding:10px 20px;
+    width:120px;
+    height: 55px;
+    border:none;
+    background-color:#96B2D7;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn_pwmoarea a{
+    margin-top:250px;
+    padding:15px 20px;
+    width:300px;
+    height: 50px;
+    border:none;
+    background-color:#96B2D7;
+    border-radius: 5px;
+    color:#fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
