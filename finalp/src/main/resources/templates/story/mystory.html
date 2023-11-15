@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/board/css/main.css}">
+ 	<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+    <style>
+		.hoverEvent:hover{
+			cursor: pointer;
+		}
+		#storyDetail{
+			position: fixed;
+			top: 120px;
+			left: 150px;
+			width: 960px;
+			height: 450px;
+			z-index: 1010;
+			background-color: white;
+			display: none;
+		}
+		#cover{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			opacity: 0.2;
+			z-index: 1000;
+			display: none;
+		}
+		.images{
+			background-color: #F1F5FA;
+		}
+		.images, .contents{
+			width: 480px;
+			height: 450px;
+			position: relative;
+		}
+		.contents{
+			padding: 15px;
+		}
+		#top div, #mid div{
+			padding: 5px;
+		}
+		.nextBtn, .prevBtn {
+			position: absolute;
+			top: 50%;
+			z-index: 5;
+		}
+		.nextBtn img, .prevBtn img {
+         width: 70px;
+         height: 70px;
+		}
+		.nextBtn {
+			right: -10px;
+		}
+		.prevBtn {
+			left: -10px;
+		}
+		.slideBox img{
+			object-fit: contain;
+			width: 100%;
+			height: 100%;
+		}
+		
+		#top{
+			width: 480px;
+			height: 50px;
+			display: flex;
+		}
+		#mid{
+			width: 480px;
+			height: 200px;
+			display: flex;
+			flex-direction: column;
+		}
+		#bottom{
+			height: 180px;
+			overflow: auto;
+			padding-bottom: 3px;
+		}
+		.contents hr{
+			margin: 0 auto;
+			border: 1px solid #D7E2F0;
+		}
+		.b p{
+			padding-top: 5px;
+		}
+		#like_reply *{
+			font-size: 13px;
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<link rel="stylesheet" th:href="@{/board/css/main.css}">
+<link rel="stylesheet" th:href="@{/board/css/mystory.css}">
+<link rel="icon" th:href="@{/board/images/flogo.png}"/>
+
+<body>
+	<div id="cover"></div>
+    <div id="wrap">
+        <th:block th:replace="~{layout/header::header(${session.loginUser})}"></th:block>
+        <section id="storyDetail">
+			<div class="images" style="overflow: hidden; float: left;">
+
+			</div>
+			<div class="contents" style="float: left;">
+				<div id="top">
+					<img style="border-radius: 100%; padding-bottom: 13px;margin-left: 5px;"
+						src="/board/images/p1.png">
+					<p style="padding-top: 5px; font-size: 18px; margin-left: 20px;"
+						id="writer"></p>
+				</div>
+				<hr>
+				<div id="mid">
+					<div style="margin-bottom: auto; margin-left: 10px;"></div>
+					<div id="like_reply" style="display: flex; overflow: hidden;">
+						<span class="b">
+			                <img th:src="@{/board/images/emptyhrt.png}"
+			                	style="width: 22px;" alt="">
+			                <p class="in_like"></p>
+			            </span>
+			            <span class="b">
+			                <img style="width: 22px;"
+			                	th:src="@{/board/images/msg.png}" alt="">
+			                <p class="in_reply"></p>
+			            </span>
+					</div>
+				</div>
+				<hr>
+				<div id="bottom"></div>
+			</div>
+		</section>
+        <section>
+            <div class="s_profil">
+                <div class="profil_img">
+                    <img th:src="@{/board/images/main3.png}" alt="">
+                </div>
+                <div class="s_info">
+                    <div th:class="${'info_id '+session.loginUser}"
+                    th:text="${session.loginUser}"></div>
+                    <div>
+                        <span id="numOfMyStories"></span>
+                        <span id="numOfMyFollowers"></span>
+                        <span id="numOfMyFollowings"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <hr style="width: 900px; margin: auto;">
+            <div class="s_list">
+                <div class="list_box">
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    
+    <!-- 복사할 태그 -->
+    <div class="slist_img" id="forCopy" style="display: none;">
+        <img class="a image" th:src="@{/board/images/section2.png}" alt="">
+        <div class="link">
+            <div class="b">
+                <img th:src="@{/board/images/ssheart.png}" alt="">
+                <p class="like">100</p>
+            </div>
+            <div class="b">
+                <img th:src="@{/board/images/ssmsg.png}" alt="">
+                <p class="reply">200</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</body>
+<script src="/board/js/forStory.js"></script>
+<script src="/board/js/mystory.js"></script>
+</html>
