@@ -14,12 +14,12 @@
 		.nextBtn, .prevBtn {
 			position: absolute;
 			top: 50%;
-			z-index: 10;
+			z-index: 5;
 		}
 		.nextBtn img, .prevBtn img {
          width: 100px;
          height: 100px;
-      }
+		}
 		.nextBtn {
 			right: -10px;
 		}
@@ -30,6 +30,32 @@
 			margin: 0 auto;
 			width: 600px;
 			position: relative;
+		}
+		
+		.loader {
+        border: 16px solid #f3f3f3;
+        border-bottom: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+		}
+		@keyframes spin {
+			0% {
+				transform: translate(-50%, -50%);
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: translate(-50%, -50%);
+				transform: rotate(360deg);
+			}
+		}
+		.m_write{
+			z-index: 100000;
 		}
 	</style>
 </head>
@@ -52,7 +78,6 @@
                 <a class="current" href="#">입양후기</a>
             </div>
         </section>
-       
         <section>
 			<table style="display: none;">
 				<tr id="forReplyAndCopy">
@@ -67,21 +92,8 @@
 			</table>
             <div class="s_title">
 				
-				
                 
             </div>
-		<section  style="display: none;">
-			<div class="sub_likebox" id="box22" >
-				<div class="like_pf">
-					<img src="" alt="">
-				</div>
-				<div class="likeid"></div>
-				<div class="f">
-					<div class="follow">팔로우</div>
-					<div class="follow1">팔로잉</div>
-				</div>
-			</div>
-		</section>
             <div class="m_write">
 				<!--<th:block th:if="${session.loginUser != null}">-->
 					<a id="writeBtn" th:href="${'/story/swrite'}"
@@ -102,7 +114,7 @@
 				<div id="storyform" class="s_container" style="display: none;">
                     <div class="profil">
                         <div class="top">
-				          <img th:src="@{/user/thum (useridx=${proimage.useridx})}" class="mp_pro">
+							<img class="proimages">
 							<!--<img th:src="@{/board/images/p1.png}" alt="">-->
 							<a class="userid" href="#"></a> <!--여기-->
                             <h4 class="storydate">22시간전(현재 시간 - 등록한 시간/일,월,년 구별)</h4>
@@ -138,16 +150,7 @@
                             <p class="storycategory"></p>
                         </div>
                     </div>
-					<div class="likebox">
-						<div class="sub_likebox">
-							<div class="likee">좋아요</div>
-							<div class="deleteimg">
-								<img th:src="@{/board/images/delete.png}" alt="">
-							</div>
-						</div>
-						<hr class="b" style="border-bottom: 1px solid white; border-left: 1px solid white;">
-						</div>
-					<div class="bottom">
+                    <div class="bottom">
                         <div class="likecnt">
                             <p class="storylike"></p>
                         </div>
@@ -278,10 +281,11 @@
 			<th:block th:replace="~{layout/footer::footer}"></th:block>
 		</section>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/board/js/forStory.js}"></script>
 	<script th:src="@{/board/js/story.js}"></script>
 	<!--<script th:src="@{/board/js/storyAjax.js}"></script>-->
-  </body>
-  </html>
+</body>
+</html>
 
 
 

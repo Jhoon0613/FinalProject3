@@ -8,7 +8,7 @@
 	</insert>
 	<insert id="addFollowerWhenExisting">
 		insert into story_follower(storyfollower) values(#{storyWriter})
-		where storyWriter=#{whom}
+		where storywriter=#{whom}
 	</insert>
 	
 	<insert id="followingWhenNotExisting">
@@ -25,7 +25,7 @@
 	
 	<delete id="cancelFollowing">
 		delete from story_following
-		where storyWriter=#{storyWriter}
+		where storywriter=#{storyWriter}
 	</delete>
 	<delete id="removeFollower">
 		delete from story_follower
@@ -37,25 +37,31 @@
 	
 	<select id="isStoryWriterInFollowing">
 		select * from story_following
-		where storyWriter=#{storyWriter}
+		where storywriter=#{storyWriter}
 		and not exists(
 			select * from story_following fw
-			where fw.storyWriter = story_following.storyWriter
+			where fw.storywriter = story_following.storywriter
 			and fw.storyfollowing = story_following.storyfollowing
-			and fw.storyWriter = story_following.storyfollowing
+			and fw.storywriter = story_following.storyfollowing
 		)
 	</select>
 	<select id="isStoryWriterInFollower">
 		select * from story_follower
-		where storyWriter=#{storyWriter}
+		where storywriter=#{storyWriter}
 		and storyfollower is not null
 	</select>
-	
-	
 	<select id="whoLoginUserFollowed">
 		select * from story_following
-		where storyWriter=#{loginUser}
+		where storywriter=#{loginUser}
 		and storyfollowing=#{whom}
+	</select>
+	<select id="getMyFollwers">
+		select storyfollower from story_follower
+		where storywriter=#{storyWriter}
+	</select>
+	<select id="getMyFollwings">
+		select storyfollowing from story_following
+		where storywriter=#{storyWriter}
 	</select>
 </mapper>
 

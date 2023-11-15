@@ -83,20 +83,7 @@ const events = () => {
 	    $(this).prev().show();
 	    $(this).hide();
 	})
-	
-	//좋아요 리스
-		$(".deleteimg").click(function(){
-	    $(".likebox").hide();
-	    $('body').css({ overflow: 'visible' });
-	})
-	$(".storylike").click(function(){
-	    $(".likebox").show();
-	    $('body').css({ overflow: 'hidden' });
-	})
-	  
 };
-
-	
 
 const stories = document.querySelector(".s_title");
 const storyToCopy = document.querySelector("#storyform");
@@ -109,27 +96,28 @@ const getReplyDTO = (id, con, num) => {
 	replyDTO.storyNum = num;
 };
 
+
+let startStoryNum = 0;
+let endStoryNum = 5;
+
+
 const copyStoryForm = obj => {
 	let storyForms = [];
 	
-	for(let i=0;i<obj.length;i++){
-		const storyForm =
-			document.querySelector("#storyform").cloneNode(true);
-		storyForm.classList.add("story"+obj[i].story.storyNum);
-		storyForm.removeAttribute('id');
-		
-		storyForms[i] = storyForm;
-		stories.appendChild(storyForm);
+	for(let i=startStoryNum;i<obj.length+startStoryNum;i++){
+		if(obj[i-startStoryNum]){
+			const storyForm =
+				document.querySelector("#storyform").cloneNode(true);
+			storyForm.classList.add("story"+obj[i-startStoryNum].story.storyNum);
+			storyForm.removeAttribute('id');
+			
+			storyForms[i-startStoryNum] = storyForm;
+			stories.appendChild(storyForm);
+		}else{
+			break;
+		}
 	}
-	
 	return storyForms; //나중에 display none 전부 해제
-};
-
-const forSearch = {
-	startNum: 0,
-	endNum : 1000,
-	keyword: "",
-	category: "adoptReview"
 };
 
 const modifyReply = (replymodifyBtn, contentsTag, replynum) => {
@@ -179,57 +167,6 @@ const removeReply = (removeBtn, replynum, replyCount) => {
 			},1200);
 		});
 		replyCount();
-	});
-};
-
-const storyPic = (picNum, photo) => {
-	let slide = document.createElement("div");
-	slide.className = "slide";
-	slide.style.height = photo+"px";
-	slide.style.overflow = "hidden";
-	slide.style.position = "relative";
-	
-	let width = picNum*photo;
-	
-	let slideContainer = document.createElement("div");
-	slideContainer.className = "slideContainer";
-	slideContainer.style.width = width;
-	slideContainer.style.height = photo+"px";
-	slideContainer.style.display = "flex";
-	slideContainer.style.transition = "all 0.8s";
-	
-	slide.appendChild(slideContainer);
-	
-	return slide;
-};
-
-
-//스토리 사진 넘기는 버튼 이벤트
-const nextBtnEvent = (nextBtn, photoWidth, slide, numOfImages) => {
-	let temp = photoWidth;
-	
-	nextBtn.addEventListener("click", () => {
-		if (temp < photoWidth*numOfImages) {
-	        slide.style.transform = `translateX(-${temp}px)`;
-	        temp += photoWidth;
-		} else {
-	        slide.style.transform = "translateX(0)";
-	        temp = photoWidth;
-		}
-	});
-};
-
-const prevBtnEvent = (prevBtn, photoWidth, slide, numOfImages) => {
-	let temp = photoWidth;
-	
-	prevBtn.addEventListener("click", () => {
-		if (temp > photoWidth) {
-	        slide.style.transform = `translateX(-${temp - photoWidth*2}px)`;
-	        temp -= photoWidth;
-		} else {
-	        slide.style.transform = `translateX(-${photoWidth*(numOfImages-1)}px)`;
-	        temp = photoWidth*numOfImages;
-		}
 	});
 };
 
@@ -290,15 +227,6 @@ const getStories = (search, loginUser, callback) => {
 const getReplies = (storynum, callback) => {
 	$.getJSON(
 		"/story_reply/reply/"+storynum,
-		function(data){
-			callback(data);
-		}
-	)
-};
-
-const getLikeList = (storyNum, callback) => {
-	$.getJSON(
-		"/story/likeList/"+storyNum,
 		function(data){
 			callback(data);
 		}
@@ -403,16 +331,20 @@ const cancelFollow = (storyWriter, callback) => {
 //------------------------------------------------------
 const forReplyNums = []; //스토리 글 하나당 댓글 몇 개인지 담기
 const likeCnt = [];
-const loginUser = document.querySelector("#writeBtn").dataset.hiddenValue;
+const temp = document.querySelector("#writeBtn");
+const loginUser = temp?.dataset.hiddenValue;
 const getStoriesCallback = resultDataFromAjax => {
 	//storyForm 복사
 	let storyForms = copyStoryForm(resultDataFromAjax);
 	let forReply = document.querySelector("#forReplyAndCopy");
-	let forLike = document.querySelector("#box22");
 	
 	//[...] = 컬렉션이나 뭐 이상한 것들 배열로 만들어주기
 	//Or Array.from(); 사용 가능
 
+	if(storyForms.length == 0){
+		console.log("없음");
+		return;
+	}
 	//복사 -> 노드 추가
 	[...resultDataFromAjax].forEach((obj, i) => {
 		/*
@@ -441,13 +373,12 @@ const getStoriesCallback = resultDataFromAjax => {
 			console.log("\tfile : "+f.missingorstory);
 		});
 		*/
-		
+
 		let storyNum = obj.story.storyNum;
 		let storyCategory = obj.story.storyCategory;
 		let storyContents = obj.story.storyContents;
 		let storyWriter = obj.story.storyWriter;
 		let storyLikes = obj.story.storyLikes;
-		let storyDate = obj.story.storyDate;
 		let storyModifyCheck = obj.story.storyModifyCheck;
 		let time = obj.forTime;
 		
@@ -466,9 +397,8 @@ const getStoriesCallback = resultDataFromAjax => {
 		let replycnt1 = document.querySelector(findTag+".replycnt1");
 		let seeAll = document.querySelector(findTag+".seeAll");
 		let regist = document.querySelector(findTag+".regist");
-		let likebox = document.querySelector(findTag+".likebox");
+		
 		let profil = document.querySelector(findTag+".profil");
- 		let likeid1 = document.querySelector(".likeid1"); 		
 		profil.classList.add(storyWriter);
 		
 		
@@ -601,7 +531,6 @@ const getStoriesCallback = resultDataFromAjax => {
        let likeDefault = document.querySelector(findTag+".like");
 		let cancelLike = document.querySelector(findTag+".like1");
         let likeCheck = obj.likeCheck;
-		
         if(likeCheck){
 			likeDefault.style.display = "none";
 			cancelLike.style.display = "block";
@@ -612,83 +541,23 @@ const getStoriesCallback = resultDataFromAjax => {
 		}
 		likeDefault.addEventListener("click", () => {
 			clickLikeM(loginUser, storyNum, result => {
-
+				
 				likeCnt[i]++;
-				let targetSelector = ".b";
-				let targetElement = document.querySelector(targetSelector);
-
-				if (targetElement) {
-					let like_pf1 = document.createElement("div");
-					let likeid1 = document.createElement("div");
-					let img = document.createElement("img");
-					img.setAttribute("src","/board/images/p1.png");
-					like_pf1.appendChild(img);
-
-					like_pf1.className = "like_pf1";
-					likeid1.className = "likeid1";
-					
-					likeid1.innerHTML = loginUser;
-
-					targetElement.appendChild(like_pf1);
-					targetElement.appendChild(likeid1);
-				} else {
-					console.error("클래스 " + targetSelector + " 가 존재하지 않습니다.");
-				}
-				likecnt.innerHTML = "좋아요 " + likeCnt[i] + "개";
-				console.log("좋아요 - " + result);
+				likecnt.innerHTML = "좋아요 "+likeCnt[i]+"개";
+				console.log("좋아요 - "+result);
+				
 			});
 		});
+		
 		cancelLike.addEventListener("click", () => {
 			cancelLikeM(loginUser, storyNum, result => {
+				
 				likeCnt[i]--;
-				let uid = document.querySelector('.'+loginUser);
 				likecnt.innerHTML = "좋아요 "+likeCnt[i]+"개";
-				console.log(uid);
-				
-				if(uid){
-					 let r=uid.querySelector('.likeid');
-					 let r1=uid.querySelector('.like_pf');
-					 let img = r1.querySelector('img');
-					 
-					 uid.classList.remove(loginUser);
-					 r.classList.remove('likeid'); // b 클래스를 제거합니다.
-   					 r1.classList.remove('like_pf');
-   					 r1.removeChild(img);
-    				 r.innerHTML = ''; // 내용을 비웁니다.
-				}
-				else{
-				let likeboxElement = document.querySelector('.likebox'); // likebox 요소를 선택합니다.
-				let hrElement = likeboxElement.querySelector('.likeid1'); // b 클래스를 가진 hr 요소를 선택합니다.
-				let hrElement1 = likeboxElement.querySelector('.like_pf1');
-				
-   				hrElement.classList.remove('likeid1'); // b 클래스를 제거합니다.
-   				hrElement1.classList.remove('like_pf1');
-   				hrElement1.removeChild(hrElement1.firstChild);
-    			hrElement.innerHTML = ''; // 내용을 비웁니다.
-				}
-				/*likeid.innerHTML = likeid.innerHTML.replace(loginUser, '');*/
 				console.log("좋아요 취소 - "+result);
 				
 			});
 		});
-		 
-		getLikeList(storyNum, data => {
-			data.reverse();
-			for(let i=0; i<data.length; i++){
-				let copiedLike = forLike.cloneNode(true);
-        		copiedLike.id = "";
-				copiedLike.classList.add("likke"+i);
-				copiedLike.classList.add(data[i]);
-				copiedLike.children[0].children[0].setAttribute("src","/board/images/p1.png");;
-				copiedLike.children[1].innerHTML=data[i];
-				if(data[i]==loginUser){
-    				$(copiedLike.children[2]).css("display", "none");
-				}
-				likebox.appendChild(copiedLike);
-				
-			}
-		});
-
 	
 		
         
@@ -729,20 +598,73 @@ const getStoriesCallback = resultDataFromAjax => {
 	});
 	
 	//복사한 storyForm들 display none해제
-	for(let i=0;i<storyForms.length;i++){
-		storyForms[i].style.display = "block";
+	for(let i=startStoryNum;i<storyForms.length+startStoryNum;i++){
+		storyForms[i-startStoryNum].style.display = "block";
 	}
 	events();
 };
 
-//페이지 로드 시 처음 ajax통신
-window.onload = () => {
-	getStories(forSearch, loginUser, getStoriesCallback);
+
+const forSearch = {
+	startNum: startStoryNum,
+	endNum : endStoryNum,
+	keyword: "",
+	category: "adoptReview"
 };
 
+const upStoryStartNum = length => {
+	startStoryNum += length;
+	endStoryNum += length;
+	
+	forSearch.startNum = startStoryNum;
+	forSearch.endNum = endStoryNum;
+};
 
+//페이지 로드 시 처음 ajax통신
+window.onload = () => {
+	getStories(forSearch, loginUser, result=>{
+		getStoriesCallback(result);
+		upStoryStartNum(result.length);
+	});
+};
 
+const windowScrollEvent = () => {
+	const screenBottomeLine = window.innerHeight+window.scrollY;
+	const bodyHeight = document.body.offsetHeight;
+	
+	if(screenBottomeLine>=bodyHeight-10){
+		let promise = new Promise(resolve => {
+			let div = document.createElement("div");
+			div.className = "loader";
+			
+			let wrap = document.createElement("div");
+			wrap.style.width = "120px";
+			wrap.style.height = "120px";
+			
+			wrap.appendChild(div);
+			stories.appendChild(wrap);
+			
+			setTimeout(()=>{
+				stories.removeChild(wrap);
+			},100);
+			
+			resolve();
+		});
+		
+		promise.then(()=>{
+			getStories(forSearch, loginUser, result => {
+				if(result.length==0){
+					window.removeEventListener("scroll", windowScrollEvent);
+				}else{
+					getStoriesCallback(result);
+					upStoryStartNum(result.length);
+				}
+			});
+		});
+	}
+};
 
+window.addEventListener("scroll", windowScrollEvent);
 
 
 

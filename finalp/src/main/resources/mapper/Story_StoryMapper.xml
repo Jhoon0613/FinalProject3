@@ -13,6 +13,10 @@
 	<select id="story_getStory">
 		select * from story_story where storynum=#{storynum}
 	</select>
+	<select id="getMyStoriesByStoryWriter">
+		select * from story_story where storywriter=#{storyWriter}
+		order by storydate desc
+	</select>
 	
 	<insert id="story_insertStory">
 		insert into story_story(storycategory, storycontents, storywriter)
