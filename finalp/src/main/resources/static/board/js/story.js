@@ -643,7 +643,7 @@ const getStoriesCallback = resultDataFromAjax => {
 				likeCnt[i]--;
 				let uid = document.querySelector('.'+loginUser);
 				likecnt.innerHTML = "좋아요 "+likeCnt[i]+"개";
-				
+				console.log(uid);
 				
 				if(uid){
 					 let r=uid.querySelector('.likeid');
