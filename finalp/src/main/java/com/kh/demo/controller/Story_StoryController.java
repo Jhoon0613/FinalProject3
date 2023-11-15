@@ -41,8 +41,6 @@ public class Story_StoryController {
 	@Autowired
 	private Story_FileService fileService;
 	
-	private String s;
-	
 	@GetMapping("/storylist")
 	public String storyHome(HttpServletRequest req,Model model) {
 		
